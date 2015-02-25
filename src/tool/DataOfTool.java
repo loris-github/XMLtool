@@ -7,6 +7,6 @@ import java.util.Map;
 
 public class DataOfTool {
 	public String topPackageName;
-	public List<BeanStruct> beanList = new ArrayList<BeanStruct>();
-	public Map<String,List<BeanStruct>> subPackage = new HashMap<String,List<BeanStruct>>();
+	public List<XMLBean> beanList = new ArrayList<XMLBean>();
+	public Map<String,List<XMLBean>> subPackage = new HashMap<String,List<XMLBean>>();
 }
