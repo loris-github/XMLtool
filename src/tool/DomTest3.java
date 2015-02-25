@@ -1,14 +1,10 @@
 package tool;
 
 import java.io.File;  
-import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;  
 import javax.xml.parsers.DocumentBuilderFactory;  
   
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Attr;  
 import org.w3c.dom.Comment;  
 import org.w3c.dom.Document;  
@@ -16,54 +12,36 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;  
 import org.w3c.dom.Node;  
 import org.w3c.dom.NodeList;  
-import org.xml.sax.SAXException;
-
-public class ParserOfXML {
-	public static void main(String[] args) throws Exception  
+  
+/** 
+ * 使用递归解析给定的任意一个xml文档并且将其内容输出到命令行上 
+ * @author zhanglong 
+ * 
+ */  
+public class DomTest3  
+{  
+    public static void main(String[] args) throws Exception  
     {  
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();  
         DocumentBuilder db = dbf.newDocumentBuilder();  
           
         Document doc = db.parse(new File("gnet.gsd.xml"));  
-        //获得根元素结点 
+        //获得根元素结点  
         Element root = doc.getDocumentElement(); 
-        parseElement(root);
-         
+        //System.out.print();
+          
+        parseElement(root);  
     }  
-   
-	private static void parseXMLFile(Element applicationName,DataOfTool dot){
-		
-		NodeList subPackages = applicationName.getChildNodes();
-		
-		if(null != subPackages){
-
-		}
-		
-		
-		
-	}
-	
-	private void parseNamespace(NodeList namespaceList){
-		
-		if(null != namespaceList){
-			for(int i = 0; i < namespaceList.getLength(); i++){
-				
-			}
-		}
-		
-	}
-	
-	private void parseBean (){
-		
-	}
-	
+      
     private static void parseElement(Element element)  
     {  
-        String tagName = element.getNodeName();
-        
-        if(tagName !="namespace") return;
-             
-        NodeList children = element.getChildNodes();        
+        String tagName = element.getNodeName();  
+          
+        NodeList children = element.getChildNodes();  
+          
+        System.out.print("<" + tagName);  
+          
+        //element元素的所有属性所构成的NamedNodeMap对象，需要对其进行判断  
         NamedNodeMap map = element.getAttributes();  
           
         //如果该元素存在属性  
@@ -76,7 +54,8 @@ public class ParserOfXML {
                   
                 String attrName = attr.getName();  
                 String attrValue = attr.getValue();  
-                    
+                  
+                System.out.print(" " + attrName + "=\"" + attrValue + "\"");  
             }  
         }  
           
@@ -115,4 +94,4 @@ public class ParserOfXML {
           
         System.out.print("</" + tagName + ">");  
     }  
-}
+} 
