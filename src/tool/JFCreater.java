@@ -26,14 +26,16 @@ public class JFCreater {
 	}
 	
 	public static void createBean(XMLBean xb){
+		
 		StringBuffer fileContent = new StringBuffer();
 	
-		String fileDir = xb.getPath();		
-		createDir(fileDir);
+		String path = xb.getPath();
 		
-		String pack = fileDir.replace(File.separator, ".");
+		//createDir (path);
 		
-		addPackage(fileContent,pack);
+		//String pack = fileDir.replace(File.separator, ".");
+		
+		addPackage(fileContent,path);
 		
 		String beanName = xb.getBeanName();
 		
@@ -54,7 +56,7 @@ public class JFCreater {
 		
 		fileContent.append("}");
 		
-		writeToFile (fileDir,beanName,fileContent);
+		writeToFile (path,beanName,fileContent);
 		
 	}
 	
@@ -131,7 +133,12 @@ public class JFCreater {
 	}
 	
 	private static void createDir (String path){
-		File file = new File (path);
+		
+		String dir = path.replace(".", File.separator);
+		
+		//System.out.println(dir);
+		
+		File file = new File ("src"+File.separator + dir+File.separator);
 		
 		if(!file.exists()){
 			file.mkdirs();
@@ -139,13 +146,21 @@ public class JFCreater {
 		
 	}
 	
-	private static void writeToFile (String fileDir, String beanName, StringBuffer fileContent){
+	private static void writeToFile (String path, String beanName, StringBuffer fileContent){
 		
-		String javaFileName = fileDir + "/" + beanName + ".java";
+		String dir = path.replace(".", File.separator);
+
+		String javaFile = "src" + File.separator + dir + File.separator + beanName +".java";
+
+		System.out.println(javaFile);
+		
+		File file = new File (javaFile);
+		
+		file.getParentFile().mkdirs();
 		
 		try {
 			
-			FileWriter fw = new FileWriter(javaFileName);
+			FileWriter fw = new FileWriter(file);
 			BufferedWriter bw = new BufferedWriter (fw);
 			
 			bw.write(fileContent.toString());

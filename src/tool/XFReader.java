@@ -44,6 +44,7 @@ public class XFReader {
         				memberName = attr.getValue();  
         			}else if(attr.getName() == "type") {
         				memberType = attr.getValue();
+        				if(memberType.toLowerCase().equals("string")) memberType = "String";			
         			}else{
         				try {
 							throw new Exception("this variable is valid data !");
@@ -98,7 +99,7 @@ public class XFReader {
 			if(path.equals("")){
 				newName = path+eName;
 			}else{
-				newName = path + File.separator + eName;
+				newName = path + "." + eName;
 			}
 
 	        for(int i = 0; i < children.getLength(); i++){  

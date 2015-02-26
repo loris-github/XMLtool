@@ -11,8 +11,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class ToolMain {
-	public static void main(String[] args) throws Exception  
-    {  
+	
+	public static void main(String[] args) throws Exception {  
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();  
         DocumentBuilder db = dbf.newDocumentBuilder();        
         Document doc = db.parse(new File("gnet.gsd.xml"));  
