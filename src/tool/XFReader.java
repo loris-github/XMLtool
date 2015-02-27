@@ -1,12 +1,21 @@
 package tool;
 
 import java.io.File;  
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Attr;  
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;  
 import org.w3c.dom.NamedNodeMap;  
 import org.w3c.dom.Node;  
 import org.w3c.dom.NodeList;  
+import org.xml.sax.SAXException;
 
 
 public class XFReader {
@@ -60,7 +69,7 @@ public class XFReader {
 		beanList.add(xb);
 	}
 	
-    public static void parseElement(Element element,String path,List<XMLBean> beanList){
+    private static void parseElement(Element element,String path,List<XMLBean> beanList){
         String tagName = element.getNodeName();
         NodeList children = element.getChildNodes();        
         NamedNodeMap map = element.getAttributes();
@@ -114,79 +123,35 @@ public class XFReader {
 	        	        
 		}
     } 
-}
 
-/*
-private  Map<String,List<XMLBean>> parseRoot(Element rootNode,StringBuffer packageName){
-	
-	NodeList namespaceList = rootNode.getChildNodes();
-	NamedNodeMap attributes = rootNode.getAttributes();
-	List<XMLBean> beans;
-		
-	if (attributes == null) return null;
-	for(int i = 0; i < attributes.getLength(); i++){			
-		Attr attr = (Attr)attributes.item(i);
-        if (attr.getName() == "name"){
-        	packageName.append(attr.getValue());	        
-        }	        
-      }
-	
-	if(namespaceList == null) return null;
-	
-	Map<String,List<XMLBean>> subpackages = new HashMap<String,List<XMLBean>>();
+    public static List<XMLBean> parseXMLFile(String XMLPath){
+    	
+    	List<XMLBean> beanList = new ArrayList<XMLBean>();
+    	
+    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-	for(int i = 0; i < namespaceList.getLength(); i++){
-		Node namespace = namespaceList.item(i);
-		short nodeType = namespace.getNodeType();
-		
-		if(nodeType== Node.ELEMENT_NODE){
+		try {
+
+			DocumentBuilder	db = dbf.newDocumentBuilder();
+			Document doc  = db.parse(new File(XMLPath));
+			Element root = doc.getDocumentElement();
+			parseElement(root,new String(""),beanList);
 			
-		}
-		
-		beans = parseNamespace(namespace);
-		
-		//subpackages.put(attrName, beans);
-		
-	}
-	
-		
-	return 	subpackages;
-}
+		} catch (ParserConfigurationException e) {
+			
+			e.printStackTrace();
+			
+		} catch (SAXException e) {
+			
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}  
 
-
-private List<XMLBean> parseNamespace(Node namespace){	
-	NodeList beanList = namespace.getChildNodes();
-	NamedNodeMap attributes = namespace.getAttributes();
-	
-	if(beanList == null) return null;
-	
-	List<XMLBean> beans = new ArrayList<XMLBean>();
-	
-
-	for(int i = 0; i < beanList.getLength(); i++){
-		Node bean = beanList.item(i);
-		beans.add(parseBean (bean));
-	}
-
-	return beans;
+    	return beanList;
+  	
+    }
 
 }
-
-private XMLBean parseBean (Node bean){		
-	NodeList variableList = bean.getChildNodes();
-	NamedNodeMap attributes = bean.getAttributes();
-
-	if(variableList == null) return null;
-	
-	String beanName = ((Attr)attributes.item(0)).getValue(); 
-	XMLBean xb = new XMLBean();
-	xb.setBeanName(beanName);
-	
-	for(int i = 0; i < variableList.getLength(); i++){
-		Node variable = variableList.item(i);
-		parseVariable (variable,xb);
-	}
-
-	return xb;	
-}
-*/	

@@ -1,35 +1,30 @@
 package tool;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 public class ToolMain {
 	
-	public static void main(String[] args) throws Exception {  
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();  
-        DocumentBuilder db = dbf.newDocumentBuilder();        
-        Document doc = db.parse(new File("gnet.gsd.xml"));  
+	public static void main(String[] args) {
 
-        Element root = doc.getDocumentElement();
+		processWithXFReader ("gnet.gsd.xml","src");
         
-        List<XMLBean> beanList = new ArrayList<XMLBean>();
-        
-        String packageName = "";
-        XFReader.parseElement(root,packageName,beanList);
-        
-        /*
-        for(XMLBean xb : beanList){
-        	System.out.println(xb);
-        }
-        */
-        
-        JFCreater.doXToJ(beanList);
     }
+	
+	public static void  processWithXFReader (String XMLPath,String beanFilesFloder) {
+	
+		List<XMLBean> beanList = XFReader.parseXMLFile (XMLPath);
+		
+		JFCreater.doXToJ(beanList,beanFilesFloder);
+
+	}
+	
+	public static void  processWithXFReader2 (String XMLPath,String beanFilesFloder) {
+		
+		List<XMLBean> beanList = XFReader.parseXMLFile (XMLPath);
+		
+		JFCreater.doXToJ(beanList,beanFilesFloder);
+
+	}
+	
+	
 }

@@ -17,23 +17,35 @@ public class JFCreater {
 	private static final String TAB = "\t";
 	private static final String SEMICOLON = ";";
 
-	public static void doXToJ(List<XMLBean> beanList){
-		for(XMLBean xb : beanList){
-			createBean(xb);
-		}
+	public static void doXToJ(List<XMLBean> beanList, String beanFilesFloder){
 		
-		System.out.println("创建完毕");
+		if (null != beanList){
+			
+			for(XMLBean xb : beanList){
+				createBean(xb,beanFilesFloder);
+			}		
+			
+			System.out.println("创建完毕");
+			
+		} else{
+			
+			try {
+				
+				throw new Exception("null beanList !");
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+		}
+
 	}
 	
-	public static void createBean(XMLBean xb){
+	public static void createBean(XMLBean xb, String beanFilesFloder){
 		
 		StringBuffer fileContent = new StringBuffer();
 	
 		String path = xb.getPath();
-		
-		//createDir (path);
-		
-		//String pack = fileDir.replace(File.separator, ".");
 		
 		addPackage(fileContent,path);
 		
@@ -56,7 +68,7 @@ public class JFCreater {
 		
 		fileContent.append("}");
 		
-		writeToFile (path,beanName,fileContent);
+		writeToFile (path,beanName,fileContent,beanFilesFloder);
 		
 	}
 	
@@ -131,26 +143,12 @@ public class JFCreater {
 	       .append(ENTER).append(ENTER);
 
 	}
-	
-	private static void createDir (String path){
-		
-		String dir = path.replace(".", File.separator);
-		
-		//System.out.println(dir);
-		
-		File file = new File ("src"+File.separator + dir+File.separator);
-		
-		if(!file.exists()){
-			file.mkdirs();
-		}
-		
-	}
-	
-	private static void writeToFile (String path, String beanName, StringBuffer fileContent){
+
+	private static void writeToFile (String path, String beanName, StringBuffer fileContent, String beanFilesFloder){
 		
 		String dir = path.replace(".", File.separator);
 
-		String javaFile = "src" + File.separator + dir + File.separator + beanName +".java";
+		String javaFile = beanFilesFloder + File.separator + dir + File.separator + beanName +".java";
 
 		System.out.println(javaFile);
 		
