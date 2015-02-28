@@ -25,6 +25,9 @@ public class XMLBean {
 	public Map<String,String> getMembers(){
 		return this.members;
 	}
+	public void setMembers(Map<String,String> members){
+		this.members = members;
+	}
 	
 	public void addMember(String attrName,String attrType) {
 		this.members.put(attrName, attrType);
