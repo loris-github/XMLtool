@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,11 +50,15 @@ public class JFCreater {
 		
 		addPackage(fileContent,path);
 		
+		Map<String,String> members = xb.getMembers();
+		
+		addImport(fileContent,members);
+
 		String beanName = xb.getBeanName();
 		
 		addClassDeclaration(fileContent,beanName);
 	
-		Map<String,String> members = xb.getMembers();		
+				
 		Set<String> keys = members.keySet();
 		
 		for(String memberName: keys) {			
@@ -72,6 +77,46 @@ public class JFCreater {
 		
 	}
 	
+	private static void addImport(StringBuffer fileContent,Map<String,String> members){
+		Set<String> types = new HashSet<String>();
+		
+		
+		Set<String> keys = members.keySet();
+		
+		for(String key: keys) {
+			
+			types.add(members.get(key));		 
+		}
+		
+		Set<String> strImports = new HashSet<String>();
+		
+		
+		for(String type: types) {
+			
+			if(type.contains("Map")){
+				
+				strImports.add("import java.util.Map;"+ENTER);
+				
+			} else if(type.contains("List")){
+				
+				strImports.add("import java.util.List;"+ENTER);
+				
+			}
+		}
+		
+		if(strImports.size()>0) {
+			
+			for(String strImport : strImports){
+			
+				fileContent.append(strImport);
+			}
+			
+			fileContent.append(ENTER).append(ENTER);
+			
+		}
+		
+	}
+
 	private static void addPackage(StringBuffer fileContent,String pack){
 		fileContent.append("package ").append(pack)
 	       .append(SEMICOLON).append(ENTER).append(ENTER);

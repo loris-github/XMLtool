@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf8"?>
+
+<application name="gs" >
+		<namespace name="hero">
+			<bean name="BHeroPosition">
+				<variable name="heroid" type="int"/>
+				<variable name="posX" type="float"/>
+				<variable name="posY" type="float"/> 
+				<variable name="posZ" type="float"/> 
+			</bean>
+			<bean name="BHeroAttribute">
+				<variable name="heroid" type="int"/>
+				<variable name="name" type="string"/>
+				<variable name="level" type="int"/> 
+				<variable name="exp" type="int"/> 
+				<variable name="poses" type="list" value="BHeroPosition"/>
+				<variable name="equips" type="map" key="int" value="int"/>
+			</bean>
+		</namespace>
+		<namespace name="army">
+			<bean name="BArmyPosition">
+				<variable name="armyid" type="int"/>
+				<variable name="posX" type="float"/>
+				<variable name="posY" type="float"/> 
+				<variable name="posZ" type="float"/> 
+			</bean>
+			<bean name="BArmyAttribute">
+				<variable name="armyid" type="int"/>
+				<variable name="name" type="string"/>
+				<variable name="level" type="int"/> 
+				<variable name="exp" type="int"/> 
+			</bean>
+		</namespace>
+</application>
