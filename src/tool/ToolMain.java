@@ -11,7 +11,7 @@ public class ToolMain {
 		
 		String strXMLPath2 = "gnet.gsd(1).xml";
 
-		processWithXFReader (strXMLPath2,"src");
+		processWithXFReader2 (strXMLPath2,"src");
         
     }
 	

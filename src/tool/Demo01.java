@@ -30,7 +30,6 @@ public class Demo01 {
 		Element node = document.getRootElement();
 		//遍历所有的元素节点
 		listNodes(node);
-
 		// 获取四大名著元素节点中，子节点名称为红楼梦元素节点。
 		Element element = node.element("红楼梦");
 		//获取element的id属性节点对象
