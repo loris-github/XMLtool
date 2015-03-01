@@ -15,16 +15,18 @@ public class XFReader2 {
 	public static List<XMLBean> parseXMLFile(String XMLPath){
 		
 		List<XMLBean> beanList = new ArrayList<XMLBean>(); 
-		
-		
+	
 		try {
+			
 			SAXReader reader = new SAXReader();
 			Document document = reader.read(new File(XMLPath));
 			Element node = document.getRootElement();
+
+			String strRootName = node.attributeValue("name");
 			
-			String strRootName = node.getName();
+			StringBuffer path = new StringBuffer(strRootName);
 			
-			parseElement(node,new StringBuffer(strRootName),beanList);
+			parseElement(node,path,beanList);
 			
 		} catch (DocumentException e) {
 			
@@ -139,7 +141,7 @@ public class XFReader2 {
 		// List 类型		
 		}else if(typeName.equals("list") || typeName.equals("list[]")){
 			
-			typeName.replace("l", "L");
+			typeName = typeName.replace("l", "L");
 			
 			String strValue = eleVariable.attributeValue("value").replaceAll("\\s*", "");
 			
@@ -153,9 +155,9 @@ public class XFReader2 {
 					.append(">");
 		
 		// Map 类型	
-		}else if(typeName.equals("map") ||typeName.equals("map[]")){
+		}else if(typeName.equals("map") || typeName.equals("map[]")){
 			
-			typeName.replace("m", "M");
+			typeName = typeName.replace("m", "M");
 			
 			String strKey = eleVariable.attributeValue("key").replaceAll("\\s*", "");
 			
@@ -177,11 +179,11 @@ public class XFReader2 {
 		// 其他类型
 		}else{
 			
-			String strValue = eleVariable.attributeValue("value").replaceAll("\\s*", "");
+			String str = eleVariable.attributeValue("type").replaceAll("\\s*", "");
 			
-			if(isNull(strValue,"The "+ typeName +" 's value is null")) return;
+			if(isNull(str,"The "+ typeName +" 's value is null")) return;
 						
-			strType = new StringBuffer(strValue);
+			strType = new StringBuffer(str);
 			
 		}
 
@@ -199,7 +201,7 @@ public class XFReader2 {
 		if(isNull(strBeanName,"Can't find bean's name")) return;
 
 		XMLBean xb = new XMLBean();
-		xb.setBeanName(strBeanName);		
+		xb.setBeanName(strBeanName);
 		xb.setPath(path.toString());		
 
 		List<Element> variableList = eleBean.elements("variable");
@@ -212,6 +214,8 @@ public class XFReader2 {
 			
 			parseVariable(eleVariable,members);
 		}
+		
+		beanList.add(xb);
 
 	}
 	
@@ -219,30 +223,28 @@ public class XFReader2 {
 	private static void parseElement(Element element,StringBuffer path,List<XMLBean> beanList){
 		
 		List<Element> subElements = element.elements();
-				
-		if(!isNull(subElements,"Can't find subElements")){
-			
-			for(Element e : subElements){
-				
-				String strElementName = e.getName();
-				
-				path.append(".").append(strElementName);
-				
-				StringBuffer newPath = new StringBuffer(path);
-				
-				if(strElementName.equals("bean")){
-					
-					parseBean(e,newPath,beanList);
-					
-				} else {
-					
-					parseElement(e,newPath,beanList);
-				}
+		if(isNull(subElements,"Can't find subElements")) return;
 
+		for(Element e : subElements){
+			
+			StringBuffer newPath = new StringBuffer(path);
+
+			if(e.getName().equals("bean")){
+				
+				parseBean(e,newPath,beanList);
+				
+			} else {
+				
+				String strElementName = e.attributeValue("name");
+				
+				newPath.append(".").append(strElementName);
+				
+				parseElement(e,newPath,beanList);
+				
 			}
 
 		}
-		
+
 	}
 	
 }
