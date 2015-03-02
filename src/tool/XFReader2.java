@@ -148,11 +148,11 @@ public class XFReader2 {
 			if(isNull(strValue,"The "+ typeName +" 's value is null")) return;
 
 			strValue = convertFormat(strValue);
+			
+			StringBuffer strGeneric = new StringBuffer().append("<").append(strValue).append(">");
 						
-			strType = new StringBuffer().append(typeName)
-					.append("<")
-					.append(strValue)
-					.append(">");
+			strType = new StringBuffer().append(typeName).insert(4, strGeneric);
+					
 		
 		// Map 类型	
 		}else if(typeName.equals("map") || typeName.equals("map[]")){
@@ -163,7 +163,7 @@ public class XFReader2 {
 			
 			if(isNull(strKey,"The "+ typeName +" 's key is null")) return;
 						
-			strKey = convertFormat(strKey);			
+			strKey = convertFormat(strKey);	
 			
 			String strValue = eleVariable.attributeValue("value").replaceAll("\\s*", "");
 			
@@ -171,10 +171,10 @@ public class XFReader2 {
 						
 			strValue = convertFormat(strValue);
 			
-			strType = new StringBuffer().append(typeName)
-					.append("<")
-					.append(strKey).append(",").append(strValue)
-					.append(">");
+			StringBuffer strGeneric = new StringBuffer().append("<").append(strKey).append(",").append(strValue).append(">");
+			
+			strType = new StringBuffer().append(typeName).insert(3, strGeneric);
+					
 		
 		// 其他类型
 		}else{
