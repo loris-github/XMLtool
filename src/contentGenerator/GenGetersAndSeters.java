@@ -3,7 +3,7 @@ package contentGenerator;
 import java.util.Map;
 import java.util.Set;
 
-import tool.JFCreater;
+import tool.XMLBean;
 
 public class GenGetersAndSeters implements ContentGenerator{
 
@@ -56,9 +56,9 @@ public class GenGetersAndSeters implements ContentGenerator{
 	}
 
 	@Override
-	public void generateContent(StringBuffer fileContent,JFCreater JFC) {
+	public void generateContent(StringBuffer fileContent,XMLBean xb) {
 		
-		Map<String,String> members = JFC.getMembers();
+		Map<String,String> members = xb.getMembers();
 		
 		Set<String> keys = members.keySet();	
 		for(String memberName: keys) {		

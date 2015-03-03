@@ -1,64 +1,115 @@
 package tool;
 
-import java.io.File;  
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Attr;  
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;  
-import org.w3c.dom.NamedNodeMap;  
-import org.w3c.dom.Node;  
-import org.w3c.dom.NodeList;  
-import org.xml.sax.SAXException;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 public class XFReader {
-
 	
+	public static List<XMLBean> parseXMLFile(String XMLPath){
+		
+		List<XMLBean> beanList = new ArrayList<XMLBean>(); 
+	
+		try {
+			
+			SAXReader reader = new SAXReader();
+			Document document = reader.read(new File(XMLPath));
+			Element node = document.getRootElement();
+
+			String strRootName = node.attributeValue("name");
+			
+			StringBuffer path = new StringBuffer(strRootName);
+			
+			parseElement(node,path,beanList);
+			
+		} catch (DocumentException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return beanList;
+	}
+	
+	//判断null值，专门用于抛异常
+	private static boolean isNull(Object o,String strException){
+		
+		if(null == o) {
+			
+			try {
+				
+				throw new Exception(strException) ;	
+				
+			} catch (Exception e) {	
+				
+				e.getMessage();
+				e.printStackTrace();
+				return true;
+				
+			}
+		}
+		
+		return false;
+	}
+	
+	//将基础类型转化成泛型时，合适的类型
+	private static String convertFormat(String str){
+		
+		if("string".equals("str") ||"string[]".equals("str")) {
+			
+			return str.replace("s", "S");
+			
+		} else{
+			
+			return str = getWrapper(str);
+		}
+		
+	}
+	
+	//将基础类型转化成包装类型
 	private static String getWrapper(String typeName){
 		
-		if(typeName.equals("byte")){
+		if("byte".equals(typeName)){
 			
 			String Wrapper = typeName.replace("byte", "Byte");
 			return Wrapper;
 			
-		}else if(typeName.equals("boolean")){
+		}else if("boolean".equals(typeName) ){
 			
 			String Wrapper = typeName.replace("boolean", "Boolean");
 			return Wrapper;
 			
-		}else if(typeName.equals("short")){
+		}else if("short".equals(typeName)){
 			
 			String Wrapper = typeName.replace("short", "Short");
 			return Wrapper;
 			
-		}else if(typeName.equals("char")){
+		}else if("char".equals(typeName)){
 			
 			String Wrapper = typeName.replace("char", "Character");
 			return Wrapper;
 			
-		}else if(typeName.equals("int")){
+		}else if("int".equals(typeName)){
 			
 			String Wrapper = typeName.replace("int", "Integer");
 			return Wrapper;
 			
-		}else if(typeName.equals("long")){
+		}else if("long".equals(typeName)){
 			
 			String Wrapper = typeName.replace("long", "Long");
 			return Wrapper;
 			
-		}else if(typeName.equals("float")){
+		}else if("float".equals(typeName)){
 			
 			String Wrapper = typeName.replace("float", "Float");
 			return Wrapper;
 			
-		}else if(typeName.equals("double")){
+		}else if("double".equals(typeName)){
 			
 			String Wrapper = typeName.replace("double", "Double");
 			return Wrapper;
@@ -69,230 +120,131 @@ public class XFReader {
 		
 	}
 	
-	private static void parseVariable(NamedNodeMap attributes,Map<String,String> members){
+	//解析variable标签内容，生成bean的属性
+	private static void parseVariable(Element eleVariable,Map<String,String> members){
 		
-		try{
+		String memberName = eleVariable.attributeValue("name").replaceAll("\\s*", "");
+		
+		if(isNull(memberName,"The memberName is null")) return;
+		
+		String typeName = eleVariable.attributeValue("type").replaceAll("\\s*", "").toLowerCase();
+		
+		if(isNull(typeName,"The typeName is null")) return;
+		
+		StringBuffer strType;
+
+		// String 类型
+		if ("string".equals(typeName) || "string[]".equals(typeName)){
+
+			strType = new StringBuffer(typeName.replace("s", "S"));
 			
-			String memberName = ((Attr)attributes.getNamedItem("name")).getValue().replaceAll("\\s*", "");
+		// List 类型		
+		}else if("list".equals(typeName) || "list[]".equals(typeName)){
+			
+			typeName = typeName.replace("l", "L");
+			
+			String strValue = eleVariable.attributeValue("value").replaceAll("\\s*", "");
+			
+			if(isNull(strValue,"The "+ typeName +" 's value is null")) return;
+
+			strValue = convertFormat(strValue);
+			
+			StringBuffer strGeneric = new StringBuffer().append("<").append(strValue).append(">");
 						
-			if(memberName == null) throw new Exception("The memberName is null");
+			strType = new StringBuffer().append(typeName).insert(4, strGeneric);
+					
+		
+		// Map 类型	
+		}else if("map".equals(typeName) || "map[]".equals(typeName)){
 			
-			String typeName = ((Attr)attributes.getNamedItem("type")).getValue().replaceAll("\\s*", "").toLowerCase();
+			typeName = typeName.replace("m", "M");
 			
-			if(typeName == null) throw new Exception("The typeName is null");
+			String strKey = eleVariable.attributeValue("key").replaceAll("\\s*", "");
 			
-			StringBuffer strType;
-
-			// String 类型
-			if (typeName.equals("string")){
-				
-				strType = new StringBuffer("String");
-				
+			if(isNull(strKey,"The "+ typeName +" 's key is null")) return;
+						
+			strKey = convertFormat(strKey);	
 			
-			}else if (typeName.equals("string[]")){
-				
-				strType = new StringBuffer("String");
-				
-			// List 类型
-			}else if(typeName.equals("list")){
-				
-				String strValue = ((Attr)attributes.getNamedItem("value")).getValue().replaceAll("\\s*", "");
-				
-				if(strValue == null) throw new Exception("The "+ typeName +" 's value is null");
-				if(strValue.equals("string")) strValue = "String";
-				strValue = getWrapper(strValue);
-				
-				strType = new StringBuffer().append("List")
-						.append("<")
-						.append(strValue)
-						.append(">");
+			String strValue = eleVariable.attributeValue("value").replaceAll("\\s*", "");
 			
-			// Map 类型	
-			}else if(typeName.equals("map")){
-				
-				String strKey = ((Attr)attributes.getNamedItem("key")).getValue().replaceAll("\\s*", "");
-				
-				if(strKey == null) throw new Exception("The "+ typeName +" 's key is null");
-				if(strKey.equals("string")) strKey = "String";
-				strKey = getWrapper(strKey);
-				
-				String strValue =  ((Attr)attributes.getNamedItem("value")).getValue().replaceAll("\\s*", "");
-				
-				if(strValue == null) throw new Exception("The "+ typeName +" 's value is null");
-				if(strValue.equals("string")) strValue = "String";
-				strValue = getWrapper(strValue);
-				
-				strType = new StringBuffer().append("Map")
-						.append("<")
-						.append(strKey).append(",").append(strValue)
-						.append(">");
+			if(isNull(strValue,"The "+ typeName +" 's value is null")) return;
+						
+			strValue = convertFormat(strValue);
 			
-			// 其他类型
-			}else{
-				
-				String strValue = ((Attr)attributes.getNamedItem("type")).getValue().replaceAll("\\s*", "");
-				
-				if(strValue == null) throw new Exception("The "+ typeName +" 's type is null");
-				
-				strType = new StringBuffer(strValue);
-				
-			}
-
-			String memberType = strType.toString();
+			StringBuffer strGeneric = new StringBuffer().append("<").append(strKey).append(",").append(strValue).append(">");
 			
-			members.put(memberName,memberType);
+			strType = new StringBuffer().append(typeName).insert(3, strGeneric);
+					
+		
+		// 其他类型
+		}else{
 			
+			String str = eleVariable.attributeValue("type").replaceAll("\\s*", "");
 			
-		} catch (Exception e){
-			
-			e.printStackTrace();
+			if(isNull(str,"The "+ typeName +" 's value is null")) return;
+						
+			strType = new StringBuffer(str);
 			
 		}
 
+		String memberType = strType.toString();
+		
+		members.put(memberName,memberType);
+		
 	}
 	
-	private static void parseBean(NodeList children,String packageName,List<XMLBean> beanList,String beanName){
+	//解析bean标签内容
+	private static void parseBean(Element eleBean,StringBuffer path,List<XMLBean> beanList){	
 		
+		String strBeanName = eleBean.attributeValue("name").replaceAll("\\s*", "");
+		
+		if(isNull(strBeanName,"Can't find bean's name")) return;
+
 		XMLBean xb = new XMLBean();
-		xb.setPath(packageName);
-		xb.setBeanName(beanName);
+		xb.setBeanName(strBeanName);
+		xb.setPath(path.toString());		
+
+		List<Element> variableList = eleBean.elements("variable");
 		
-		if (children == null) return;
-
-		for(int i = 0; i < children.getLength(); i++){
+		if(isNull(variableList,"Can't find variables")) return;
+		
+		Map<String,String> members = xb.getMembers();
 			
-            Node node = children.item(i);
-            
-            if(node.getNodeType() == Node.ELEMENT_NODE || node.getNodeName() == "variable") {
-            	
-        		NamedNodeMap attributes = node.getAttributes();
-        		
-        		try {
-        			if(attributes == null)
-        			throw new Exception("variable is empty!");
-        		} catch (Exception e) {
-        			e.printStackTrace();
-        		}
-        		
-        		
-        		parseVariable(attributes,xb.getMembers());
-        		
-        		/*
-        		String memberName = "";
-    			String memberType = "";
-    			
-    			for(int j = 0; j < attributes.getLength(); j++) {
-    				
-        			Attr attr = (Attr)attributes.item(j);
-        			
-        			if(attr.getName() == "name") {
-        				memberName = attr.getValue();
-        				
-        			}else if(attr.getName() == "type") {
-        				memberType = attr.getValue();
-        				
-        				if(memberType.toLowerCase().equals("string")) memberType = "String";
-        				
-        			}else{
-        				try {
-							throw new Exception("this variable is valid data !");
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-        			}
-        	    }
-    			
-        		xb.addMember(memberName, memberType);
-				*/
-            }             
-        }
-
+		for(Element eleVariable : variableList){
+			
+			parseVariable(eleVariable,members);
+		}
+		
 		beanList.add(xb);
+
 	}
 	
-    private static void parseElement(Element element,String path,List<XMLBean> beanList){
-        String tagName = element.getNodeName();
-        NodeList children = element.getChildNodes();        
-        NamedNodeMap map = element.getAttributes();
-        
-        //检查
-		try {
-			if (map == null)
-			throw new Exception("element's name is not found!");				
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        
-		String eName = "";
-
-		for(int i = 0; i < map.getLength(); i++){		
-			Attr attr = (Attr)map.item(i);
-	        if (attr.getName() == "name"){		        	
-	        	eName = attr.getValue();   
-	       }	        
-	    }
+	//解析标签
+	private static void parseElement(Element element,StringBuffer path,List<XMLBean> beanList){
 		
-		//System.out.println(eName);
-		
-		//如果不是bean 则继续递归
+		List<Element> subElements = element.elements();
+		if(isNull(subElements,"Can't find subElements")) return;
 
-		if(tagName == "bean") {			
-			String lastName = path;
-			parseBean(children,path,beanList,eName);
-			path = lastName;
+		for(Element e : subElements){
 			
-		}else {
-			//生成路径
-			
-			String newName;
-			
-			if(path.equals("")){
-				newName = path+eName;
-			}else{
-				newName = path + "." + eName;
+			StringBuffer newPath = new StringBuffer(path);
+
+			if("bean".equals(e.getName())){
+				
+				parseBean(e,newPath,beanList);
+				
+			} else {
+				
+				String strElementName = e.attributeValue("name");
+				
+				newPath.append(".").append(strElementName);
+				
+				parseElement(e,newPath,beanList);
+				
 			}
 
-	        for(int i = 0; i < children.getLength(); i++){  
-	            Node node = children.item(i);          
-	            if(node.getNodeType() != Node.ELEMENT_NODE) continue;
-	            
-	            String lastName = path;
-	            parseElement((Element)node,newName,beanList);
-	            path = lastName;
-	            
-	        }	        
-	        	        
 		}
-    } 
 
-    public static List<XMLBean> parseXMLFile(String XMLPath){
-    	
-    	List<XMLBean> beanList = new ArrayList<XMLBean>();
-    	
-    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
-		try {
-
-			DocumentBuilder	db = dbf.newDocumentBuilder();
-			Document doc  = db.parse(new File(XMLPath));
-			Element root = doc.getDocumentElement();
-			parseElement(root,new String(""),beanList);
-			
-		} catch (ParserConfigurationException e) {
-			
-			e.printStackTrace();
-			
-		} catch (SAXException e) {
-			
-			e.printStackTrace();
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}  
-
-    	return beanList;
-  	
-    }
-
+	}
+	
 }

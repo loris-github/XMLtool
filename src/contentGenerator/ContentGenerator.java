@@ -1,6 +1,6 @@
 package contentGenerator;
 
-import tool.JFCreater;
+import tool.XMLBean;
 
 public interface ContentGenerator {
 
@@ -11,5 +11,5 @@ public interface ContentGenerator {
 	public static final String TAB = "\t";
 	public static final String SEMICOLON = ";";
 	
-	void generateContent(StringBuffer fileContent, JFCreater JFC);
+	void generateContent(StringBuffer fileContent, XMLBean xb);
 }

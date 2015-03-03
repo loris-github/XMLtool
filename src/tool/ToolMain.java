@@ -10,7 +10,7 @@ public class ToolMain {
 		
 		String strXMLPath2 = "gnet.gsd(1).xml";
 
-		processWithXFReader2 (strXMLPath2,"src");
+		processWithXFReader (strXMLPath2,"src");
         
     }
 	
@@ -18,19 +18,10 @@ public class ToolMain {
 	
 		List<XMLBean> beanList = XFReader.parseXMLFile (XMLPath);
 		
-		JFCreater.creatJavaFiles(beanList,beanFilesFloder);
-
-	}
-	
-	public static void  processWithXFReader2 (String XMLPath,String beanFilesFloder) {
-		
-		List<XMLBean> beanList = XFReader2.parseXMLFile (XMLPath);
-		
 		System.out.println("解析完毕");
 		
 		JFCreater.creatJavaFiles(beanList,beanFilesFloder);
 
 	}
-	
 	
 }

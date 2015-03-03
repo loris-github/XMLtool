@@ -1,13 +1,13 @@
 package contentGenerator;
 
-import tool.JFCreater;
+import tool.XMLBean;
 
 public class GenClassDeclaration implements ContentGenerator {
 
 	@Override
-	public void generateContent(StringBuffer fileContent, JFCreater JFC) {
+	public void generateContent(StringBuffer fileContent, XMLBean xb) {
 		
-		String beanName = JFC.getBeanName();
+		String beanName = xb.getBeanName();
 		
 		String className = Character.toUpperCase(beanName.charAt(0))
 			      + beanName.substring(1);

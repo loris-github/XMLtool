@@ -15,7 +15,8 @@ import contentGenerator.GenPackage;
 import contentGenerator.GenPrivateProperty;
 
 public class JFCreater implements ContentGenerator{
-
+	
+	/*
 	private String path ;
 	private Map<String,String> members;
 	private String beanName ;
@@ -39,8 +40,8 @@ public class JFCreater implements ContentGenerator{
 		this.beanName = xb.getBeanName();
 		
 	}
-	
-	public void generateContent(StringBuffer fileContent, JFCreater JFC) {
+	*/
+	public void generateContent(StringBuffer fileContent,XMLBean xb) {
 		
 		ContentGenerator[] sg = { 	
 									new GenPackage(),
@@ -51,7 +52,7 @@ public class JFCreater implements ContentGenerator{
 		
 		for(int i = 0;i<sg.length;i++){
 			
-			sg[i].generateContent(fileContent, JFC);
+			sg[i].generateContent(fileContent, xb);
 			fileContent.append(ENTER).append(ENTER);	
 			
 		}
@@ -66,14 +67,14 @@ public class JFCreater implements ContentGenerator{
 			for(XMLBean xb : beanList){
 				
 				//把单个bean的主要内容存在jfc里边
-				JFCreater jfc = new JFCreater(xb);
+				JFCreater jfc = new JFCreater();
 				
 				StringBuffer fileContent = new StringBuffer();
 
-				jfc.generateContent(fileContent,jfc);
+				jfc.generateContent(fileContent,xb);
 				
 				//写入文件
-				writeToFile(beanFilesFloder,fileContent,jfc);
+				jfc.writeToFile(beanFilesFloder,fileContent,xb);
 				
 			}			
 			
@@ -93,10 +94,10 @@ public class JFCreater implements ContentGenerator{
 
 	}
 	
-	private static void writeToFile (String beanFilesFloder, StringBuffer fileContent, JFCreater JFC){
+	private void writeToFile (String beanFilesFloder, StringBuffer fileContent, XMLBean xb){
 		
-		String path = JFC.getPath();
-		String beanName = JFC.getBeanName();
+		String path = xb.getPath();
+		String beanName = xb.getBeanName();
 		
 		String dir = path.replace(".", File.separator);
 
