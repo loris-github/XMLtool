@@ -4,27 +4,78 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-public class JFCreater {
+import contentGenerator.GenClassDeclaration;
+import contentGenerator.GenGetersAndSeters;
+import contentGenerator.ContentGenerator;
+import contentGenerator.GenImport;
+import contentGenerator.GenPackage;
+import contentGenerator.GenPrivateProperty;
+
+public class JFCreater implements ContentGenerator{
+
+	private String path ;
+	private Map<String,String> members;
+	private String beanName ;
+
+	public String getPath() {
+		return path;
+	}
+
+	public Map<String, String> getMembers() {
+		return members;
+	}
+
+	public String getBeanName() {
+		return beanName;
+	}
+
+	JFCreater (XMLBean xb){
+		
+		this.path = xb.getPath();
+		this.members = xb.getMembers();
+		this.beanName = xb.getBeanName();
+		
+	}
 	
-	private static final String PRIVATE = "private";
-	private static final String PUBLIC = "public";
-	private static final String SPACE = " ";
-	private static final String ENTER = "\n";
-	private static final String TAB = "\t";
-	private static final String SEMICOLON = ";";
+	public void generateContent(StringBuffer fileContent, JFCreater JFC) {
+		
+		ContentGenerator[] sg = { 	
+									new GenPackage(),
+									new GenImport(),
+									new GenClassDeclaration(), 
+									new GenPrivateProperty(), 
+									new GenGetersAndSeters() } ;
+		
+		for(int i = 0;i<sg.length;i++){
+			
+			sg[i].generateContent(fileContent, JFC);
+			fileContent.append(ENTER).append(ENTER);	
+			
+		}
+		
+		fileContent.append("}");
 
-	public static void doXToJ(List<XMLBean> beanList, String beanFilesFloder){
+	}
+	
+	public static void creatJavaFiles(List<XMLBean> beanList, String beanFilesFloder){
 		
 		if (null != beanList){
-			
 			for(XMLBean xb : beanList){
-				createBean(xb,beanFilesFloder);
-			}		
+				
+				//把单个bean的主要内容存在jfc里边
+				JFCreater jfc = new JFCreater(xb);
+				
+				StringBuffer fileContent = new StringBuffer();
+
+				jfc.generateContent(fileContent,jfc);
+				
+				//写入文件
+				writeToFile(beanFilesFloder,fileContent,jfc);
+				
+			}			
 			
 			System.out.println("创建完毕");
 			
@@ -42,154 +93,10 @@ public class JFCreater {
 
 	}
 	
-	public static void createBean(XMLBean xb, String beanFilesFloder){
+	private static void writeToFile (String beanFilesFloder, StringBuffer fileContent, JFCreater JFC){
 		
-		StringBuffer fileContent = new StringBuffer();
-	
-		String path = xb.getPath();
-		
-		addPackage(fileContent,path);
-		
-		Map<String,String> members = xb.getMembers();
-		
-		addImport(fileContent,members);
-
-		String beanName = xb.getBeanName();
-		
-		addClassDeclaration(fileContent,beanName);
-	
-				
-		Set<String> keys = members.keySet();
-		
-		for(String memberName: keys) {			
-			String memberType = members.get(memberName);			
-			addPrivateProperty(fileContent,memberName,memberType);			
-		}
-		
-		for(String memberName: keys) {			
-			String memberType = members.get(memberName);			
-			addSetsAndGets(fileContent,memberName,memberType);			
-		}
-		
-		fileContent.append("}");
-		
-		writeToFile (path,beanName,fileContent,beanFilesFloder);
-		
-	}
-	
-	private static void addImport(StringBuffer fileContent,Map<String,String> members){
-		Set<String> types = new HashSet<String>();
-		
-		
-		Set<String> keys = members.keySet();
-		
-		for(String key: keys) {
-			
-			types.add(members.get(key));		 
-		}
-		
-		Set<String> strImports = new HashSet<String>();
-		
-		
-		for(String type: types) {
-			
-			if(type.contains("Map")){
-				
-				strImports.add("import java.util.Map;"+ENTER);
-				
-			} else if(type.contains("List")){
-				
-				strImports.add("import java.util.List;"+ENTER);
-				
-			}
-		}
-		
-		if(strImports.size()>0) {
-			
-			for(String strImport : strImports){
-			
-				fileContent.append(strImport);
-			}
-			
-			fileContent.append(ENTER).append(ENTER);
-			
-		}
-		
-	}
-
-	private static void addPackage(StringBuffer fileContent,String pack){
-		fileContent.append("package ").append(pack)
-	       .append(SEMICOLON).append(ENTER).append(ENTER);
-	}
-	
-	private static void addClassDeclaration(StringBuffer fileContent,String beanName){
-		
-		String className = Character.toUpperCase(beanName.charAt(0))
-			      + beanName.substring(1);
-		
-		fileContent.append("public class ")
-	      .append(className)
-	      .append(" implements java.io.Serializable ")// 实现序列化接口
-	      .append("{")
-	      .append(ENTER)
-	      .append(ENTER)
-	      .append(TAB)
-	      .append("private static final long serialVersionUID = 1L;")
-	      .append(ENTER)
-	      .append(ENTER);// 生成序列号
-		
-	}
-	
-	private static void addPrivateProperty(StringBuffer fileContent,String memberName,String memberType){
-		fileContent.append(TAB).append(PRIVATE)
-	       .append(SPACE)
-	       .append(memberType)
-	       .append(SPACE)
-	       .append(memberName)
-	       .append(SEMICOLON).append(ENTER).append(ENTER);
-	}
-	
-	private static void addSetsAndGets(StringBuffer fileContent,String memberName,String memberType){
-		// create method get;
-		fileContent.append(TAB)
-	       .append(PUBLIC)
-	       .append(SPACE)
-	       .append(memberType)
-	       .append(SPACE)
-	       .append("get")
-	       .append(Character.toUpperCase(memberName.charAt(0)))
-	       .append(memberName.substring(1))
-	       .append("()").append("{").append(ENTER)
-	       .append(TAB).append(TAB)
-	       .append("return this.")
-	       .append(memberName)
-	       .append(SEMICOLON).append(ENTER);
-		fileContent.append(TAB).append("}")
-	       .append(ENTER).append(ENTER);
-		
-	     // create method set;
-		fileContent.append(TAB)
-	       .append(PUBLIC)
-	       .append(SPACE)
-	       .append("void")
-	       .append(SPACE)
-	       .append("set")
-	       .append(Character.toUpperCase(memberName.charAt(0)))
-	       .append(memberName.substring(1))
-	       .append("(").append(memberType)
-	       .append(SPACE)
-	       .append(memberName).append(")")
-	       .append("{").append(ENTER)
-	       .append(TAB).append(TAB)
-	       .append("this.").append(memberName)
-	       .append("=").append(memberName)
-	       .append(SEMICOLON).append(ENTER);
-		fileContent.append(TAB).append("}")
-	       .append(ENTER).append(ENTER);
-
-	}
-
-	private static void writeToFile (String path, String beanName, StringBuffer fileContent, String beanFilesFloder){
+		String path = JFC.getPath();
+		String beanName = JFC.getBeanName();
 		
 		String dir = path.replace(".", File.separator);
 
@@ -216,4 +123,6 @@ public class JFCreater {
 		}
 		
 	}
+
+
 }

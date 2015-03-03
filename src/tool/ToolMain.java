@@ -18,7 +18,7 @@ public class ToolMain {
 	
 		List<XMLBean> beanList = XFReader.parseXMLFile (XMLPath);
 		
-		JFCreater.doXToJ(beanList,beanFilesFloder);
+		JFCreater.creatJavaFiles(beanList,beanFilesFloder);
 
 	}
 	
@@ -28,7 +28,7 @@ public class ToolMain {
 		
 		System.out.println("解析完毕");
 		
-		JFCreater.doXToJ(beanList,beanFilesFloder);
+		JFCreater.creatJavaFiles(beanList,beanFilesFloder);
 
 	}
 	

@@ -1,0 +1,90 @@
+	
+	
+	//无参构造方法
+	
+	//全参数构造方法
+
+	@Override
+	public CombatAttr clone()
+	{
+		return new CombatAttr(c_atk_p, c_def_p, c_atk_m, c_def_m, c_hp);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int h = (int)serialVersionUID;
+		h = h * 31 + 1 + this.c_atk_p;
+		h = h * 31 + 1 + this.c_def_p;
+		h = h * 31 + 1 + this.c_atk_m;
+		h = h * 31 + 1 + this.c_def_m;
+		h = h * 31 + 1 + this.c_hp;
+		return h;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o == this) return true;
+		if(!(o instanceof CombatAttr)) return false;
+		CombatAttr b = (CombatAttr)o;
+		if(this.c_atk_p != b.c_atk_p) return false;
+		if(this.c_def_p != b.c_def_p) return false;
+		if(this.c_atk_m != b.c_atk_m) return false;
+		if(this.c_def_m != b.c_def_m) return false;
+		if(this.c_hp != b.c_hp) return false;
+		return true;
+	}
+
+	@Override
+	public int compareTo(CombatAttr b)
+	{
+		if(b == this) return 0;
+		if(b == null) return 1;
+		int c;
+		c = this.c_atk_p - b.c_atk_p; if(c != 0) return c;
+		c = this.c_def_p - b.c_def_p; if(c != 0) return c;
+		c = this.c_atk_m - b.c_atk_m; if(c != 0) return c;
+		c = this.c_def_m - b.c_def_m; if(c != 0) return c;
+		c = this.c_hp - b.c_hp; if(c != 0) return c;
+		return 0;
+	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder s = new StringBuilder(16 + 256 * 2).append('{');
+		s.append(this.c_atk_p).append(',');
+		s.append(this.c_def_p).append(',');
+		s.append(this.c_atk_m).append(',');
+		s.append(this.c_def_m).append(',');
+		s.append(this.c_hp).append(',');
+		s.setLength(s.length() - 1);
+		return s.append('}').toString();
+	}
+
+
+	/*
+	@Override
+	public void assign(CombatAttr b)
+	{
+		if(b == this) return;
+		if(b == null) { reset(); return; }
+		this.c_atk_p = b.c_atk_p;
+		this.c_def_p = b.c_def_p;
+		this.c_atk_m = b.c_atk_m;
+		this.c_def_m = b.c_def_m;
+		this.c_hp = b.c_hp;
+	}
+	*/
+	
+	/*
+	@Override
+	public void reset()
+	{
+		c_atk_p = 0;
+		c_def_p = 0;
+		c_atk_m = 0;
+		c_def_m = 0;
+		c_hp = 0;
+	}

@@ -39,7 +39,7 @@ public class XFReader2 {
 	//判断null值，专门用于抛异常
 	private static boolean isNull(Object o,String strException){
 		
-		if(o == null) {
+		if(null == o) {
 			
 			try {
 				
@@ -60,7 +60,7 @@ public class XFReader2 {
 	//将基础类型转化成泛型时，合适的类型
 	private static String convertFormat(String str){
 		
-		if(str.equals("string") || str.equals("string[]")) {
+		if("string".equals("str") ||"string[]".equals("str")) {
 			
 			return str.replace("s", "S");
 			
@@ -74,42 +74,42 @@ public class XFReader2 {
 	//将基础类型转化成包装类型
 	private static String getWrapper(String typeName){
 		
-		if(typeName.equals("byte")){
+		if("byte".equals(typeName)){
 			
 			String Wrapper = typeName.replace("byte", "Byte");
 			return Wrapper;
 			
-		}else if(typeName.equals("boolean")){
+		}else if("boolean".equals(typeName) ){
 			
 			String Wrapper = typeName.replace("boolean", "Boolean");
 			return Wrapper;
 			
-		}else if(typeName.equals("short")){
+		}else if("short".equals(typeName)){
 			
 			String Wrapper = typeName.replace("short", "Short");
 			return Wrapper;
 			
-		}else if(typeName.equals("char")){
+		}else if("char".equals(typeName)){
 			
 			String Wrapper = typeName.replace("char", "Character");
 			return Wrapper;
 			
-		}else if(typeName.equals("int")){
+		}else if("int".equals(typeName)){
 			
 			String Wrapper = typeName.replace("int", "Integer");
 			return Wrapper;
 			
-		}else if(typeName.equals("long")){
+		}else if("long".equals(typeName)){
 			
 			String Wrapper = typeName.replace("long", "Long");
 			return Wrapper;
 			
-		}else if(typeName.equals("float")){
+		}else if("float".equals(typeName)){
 			
 			String Wrapper = typeName.replace("float", "Float");
 			return Wrapper;
 			
-		}else if(typeName.equals("double")){
+		}else if("double".equals(typeName)){
 			
 			String Wrapper = typeName.replace("double", "Double");
 			return Wrapper;
@@ -134,12 +134,12 @@ public class XFReader2 {
 		StringBuffer strType;
 
 		// String 类型
-		if (typeName.equals("string") || typeName.equals("string[]")){
+		if ("string".equals(typeName) || "string[]".equals(typeName)){
 
 			strType = new StringBuffer(typeName.replace("s", "S"));
 			
 		// List 类型		
-		}else if(typeName.equals("list") || typeName.equals("list[]")){
+		}else if("list".equals(typeName) || "list[]".equals(typeName)){
 			
 			typeName = typeName.replace("l", "L");
 			
@@ -155,7 +155,7 @@ public class XFReader2 {
 					
 		
 		// Map 类型	
-		}else if(typeName.equals("map") || typeName.equals("map[]")){
+		}else if("map".equals(typeName) || "map[]".equals(typeName)){
 			
 			typeName = typeName.replace("m", "M");
 			
@@ -229,7 +229,7 @@ public class XFReader2 {
 			
 			StringBuffer newPath = new StringBuffer(path);
 
-			if(e.getName().equals("bean")){
+			if("bean".equals(e.getName())){
 				
 				parseBean(e,newPath,beanList);
 				
