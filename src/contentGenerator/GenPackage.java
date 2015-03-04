@@ -9,7 +9,7 @@ public class GenPackage implements ContentGenerator {
 		String path = xb.getPath();
 		
 		fileContent.append("package ").append(path)
-	       .append(SEMICOLON);
+	       .append(SEMICOLON).append(ENTER).append(ENTER);
 
 	}
 

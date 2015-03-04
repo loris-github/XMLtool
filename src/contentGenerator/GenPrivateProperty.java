@@ -20,6 +20,8 @@ public class GenPrivateProperty implements ContentGenerator {
 			String memberType = members.get(memberName);			
 			addPrivateProperty (fileContent,memberName,memberType);			
 		}
+		
+		fileContent.append(ENTER);
 	}
 	
 	private void addPrivateProperty (StringBuffer fileContent,String memberName,String memberType) {

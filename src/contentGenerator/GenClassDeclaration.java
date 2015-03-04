@@ -19,7 +19,8 @@ public class GenClassDeclaration implements ContentGenerator {
 	      .append(ENTER)
 	      .append(ENTER)
 	      .append(TAB)
-	      .append("private static final long serialVersionUID = 1L;");// 生成序列号
+	      .append("private static final long serialVersionUID = 1L;")
+	      .append(ENTER).append(ENTER);// 生成序列号
 
 	}
 

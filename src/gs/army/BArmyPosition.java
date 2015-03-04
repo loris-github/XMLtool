@@ -1,7 +1,5 @@
 package gs.army;
 
-
-
 public class BArmyPosition implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -10,7 +8,6 @@ public class BArmyPosition implements java.io.Serializable {
 	private float posY;
 	private float posZ;
 	private int armyid;
-
 
 	public float getPosX() {
 		return this.posX;
@@ -44,6 +41,7 @@ public class BArmyPosition implements java.io.Serializable {
 		this.armyid = armyid;
 	}
 
-
+	public BArmyPosition () {
+	}
 
 }

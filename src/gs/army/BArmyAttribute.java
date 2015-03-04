@@ -1,7 +1,5 @@
 package gs.army;
 
-
-
 public class BArmyAttribute implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -10,7 +8,6 @@ public class BArmyAttribute implements java.io.Serializable {
 	private int armyid;
 	private String name;
 	private int exp;
-
 
 	public int getLevel() {
 		return this.level;
@@ -44,6 +41,9 @@ public class BArmyAttribute implements java.io.Serializable {
 		this.exp = exp;
 	}
 
-
+	public BArmyAttribute () {
+		this.name = "";
+		this.name = "";
+	}
 
 }

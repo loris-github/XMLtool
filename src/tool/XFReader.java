@@ -49,8 +49,7 @@ public class XFReader {
 				
 				e.getMessage();
 				e.printStackTrace();
-				return true;
-				
+				return true;			
 			}
 		}
 		
@@ -154,7 +153,23 @@ public class XFReader {
 			strType = new StringBuffer().append(typeName).insert(4, strGeneric);
 					
 		
-		// Map 类型	
+		// Set 类型	
+		}else if("set".equals(typeName) || "set[]".equals(typeName)){
+			
+			typeName = typeName.replace("s", "S");
+			
+			String strValue = eleVariable.attributeValue("value").replaceAll("\\s*", "");
+			
+			if(isNull(strValue,"The "+ typeName +" 's value is null")) return;
+
+			strValue = convertFormat(strValue);
+			
+			StringBuffer strGeneric = new StringBuffer().append("<").append(strValue).append(">");
+						
+			strType = new StringBuffer().append(typeName).insert(3, strGeneric);
+			
+			
+		// Map 类型		
 		}else if("map".equals(typeName) || "map[]".equals(typeName)){
 			
 			typeName = typeName.replace("m", "M");

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import contentGenerator.GenClassDeclaration;
+import contentGenerator.GenConstructor;
 import contentGenerator.GenGetersAndSeters;
 import contentGenerator.ContentGenerator;
 import contentGenerator.GenImport;
@@ -16,45 +17,20 @@ import contentGenerator.GenPrivateProperty;
 
 public class JFCreater implements ContentGenerator{
 	
-	/*
-	private String path ;
-	private Map<String,String> members;
-	private String beanName ;
-
-	public String getPath() {
-		return path;
-	}
-
-	public Map<String, String> getMembers() {
-		return members;
-	}
-
-	public String getBeanName() {
-		return beanName;
-	}
-
-	JFCreater (XMLBean xb){
-		
-		this.path = xb.getPath();
-		this.members = xb.getMembers();
-		this.beanName = xb.getBeanName();
-		
-	}
-	*/
+	public static ContentGenerator[] sg = {
+		new GenPackage(),
+		new GenImport(),
+		new GenClassDeclaration(), 
+		new GenPrivateProperty(), 
+		new GenGetersAndSeters(),
+		new GenConstructor()		
+};
+	
 	public void generateContent(StringBuffer fileContent,XMLBean xb) {
-		
-		ContentGenerator[] sg = { 	
-									new GenPackage(),
-									new GenImport(),
-									new GenClassDeclaration(), 
-									new GenPrivateProperty(), 
-									new GenGetersAndSeters() } ;
-		
+
 		for(int i = 0;i<sg.length;i++){
 			
-			sg[i].generateContent(fileContent, xb);
-			fileContent.append(ENTER).append(ENTER);	
-			
+			sg[i].generateContent(fileContent, xb);				
 		}
 		
 		fileContent.append("}");

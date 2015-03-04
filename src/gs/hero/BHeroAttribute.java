@@ -2,7 +2,8 @@ package gs.hero;
 
 import java.util.List;
 import java.util.Map;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BHeroAttribute implements java.io.Serializable {
 
@@ -14,7 +15,6 @@ public class BHeroAttribute implements java.io.Serializable {
 	private Map<Integer,Integer> equips;
 	private int exp;
 	private List<BHeroPosition> poses;
-
 
 	public int getLevel() {
 		return this.level;
@@ -64,6 +64,13 @@ public class BHeroAttribute implements java.io.Serializable {
 		this.poses = poses;
 	}
 
-
+	public BHeroAttribute () {
+		this.name = "";
+		this.name = "";
+		this.equips = new HashMap<Integer,Integer>();
+		this.equips = new HashMap<Integer,Integer>();
+		this.poses = new ArrayList<BHeroPosition>();
+		this.poses = new ArrayList<BHeroPosition>();
+	}
 
 }
