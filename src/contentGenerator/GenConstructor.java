@@ -31,14 +31,11 @@ public class GenConstructor implements ContentGenerator {
 		for(String memberName: memberNames){
 			
 			String memberType = members.get(memberName);
+						
+			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType, memberType);
 			
-			//genSentenceByType(memberName,memberType,fileContent);
-			
-			int judged = ContentKit.judgeByType(memberName, memberType, fileContent);
-			
-			genByJudged(judged,memberName,memberType,fileContent);
-			
-			
+			genByType(strType,memberName,memberType,fileContent);
+
 		} 	
 		
 		fileContent.append(TAB).append("}")
@@ -46,104 +43,36 @@ public class GenConstructor implements ContentGenerator {
 	}
 	
 	
-	private void genByJudged(int judged,String memberName,String memberType,StringBuffer fileContent){		
-		switch(judged){
+	private void genByType(String strType,String memberName,String memberType,StringBuffer fileContent){
 		
-		case 0:
+		if(ContentKit.isBasicType(strType)) {
 			
-			try {
-				throw new Exception("can't find such type!");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			return ;	
 			
-			break;
-			
-		case 1:
-			break;
-			
-		case 2:
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("\"\";").append(ENTER);	
-			break;
-			
-		case 3:
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Hash").append(memberType).append("();").append(ENTER);
-			break;
-			
-		case 4:
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Array").append(memberType).append("();").append(ENTER);	
-			break;
-			
-		case 5:
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Hash").append(memberType).append("();").append(ENTER);
-			break;
-
-		}
-
-	}
-	
-	private void genSentenceByType (String memberName,String memberType,StringBuffer fileContent){
-		
-		if(	"byte".equals(memberType) ||
-			"short".equals(memberType) ||
-			"int".equals(memberType) ||
-			"long".equals(memberType) ||
-			"float".equals(memberType) ||
-			"double".equals(memberType) ||
-			"char".equals(memberType) ||
-			"boolean".equals(memberType)){
-			
-			return;
-			
-		}else if("String".equals(memberType)){
+		} else if("String".equals(strType)) {
 			
 			fileContent.append(TAB).append(TAB)
 			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
 			.append("\"\";").append(ENTER);	
 			
-			return;
-			
-		}else if("Map<".equals(memberType.substring(0, 4))){
-			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Hash").append(memberType).append("();").append(ENTER);	
-			
-			return;
-			
-		}else if("List<".equals(memberType.substring(0, 5))){
-			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Array").append(memberType).append("();").append(ENTER);	
-						
-			return;
-			
-		}else if("Set<".equals(memberType.substring(0, 4))){
+		} else if("Map".equals(strType) || "Set".equals(strType)) { 
 			
 			fileContent.append(TAB).append(TAB)
 			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
 			.append("new").append(SPACE).append("Hash").append(memberType).append("();").append(ENTER);
 			
-			return;
+		} else if("List".equals(strType)) {
 			
-		}else{
-			
-			try {
-				throw new Exception("can't find such type!");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
+			fileContent.append(TAB).append(TAB)
+			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
+			.append("new").append(SPACE).append("Array").append(memberType).append("();").append(ENTER);	
+
+		} else { 
+			fileContent.append(TAB).append(TAB)
+			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
+			.append("new").append(SPACE).append(memberType).append("()").append(SEMICOLON).append(ENTER);		
 		}
+		
 	}
 	
 }

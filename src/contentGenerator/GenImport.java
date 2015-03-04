@@ -3,8 +3,6 @@ package contentGenerator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import tool.XMLBean;
 
@@ -20,13 +18,8 @@ public class GenImport implements ContentGenerator{
 		Set<String> strImports = new HashSet<String>();
 		
 		for(String memberType: memberTypes) {
-
-			String strType = "*";
 			
-			if(memberType.contains("<")){
-				
-				strType = memberType.substring(0, memberType.indexOf("<"));
-			}
+			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType, "*");
 
 			if("Map".equals(strType) ||"Map[]".equals(strType)){
 				
@@ -43,7 +36,7 @@ public class GenImport implements ContentGenerator{
 				strImports.add("import java.util.Set;");
 				strImports.add("import java.util.HashSet;");
 				
-			} else if(isisSubsetsOfListSetMap(strType)){
+			} else if(ContentKit.isSubsetsOfListSetMap(strType)){
 
 				strImports.add("import java.util."+strType+";");
 			}
@@ -56,17 +49,5 @@ public class GenImport implements ContentGenerator{
 			fileContent.append(ENTER);
 		}
 
-	}
-	
-	private boolean isisSubsetsOfListSetMap(String memberType){
-	
-		if( "ArrayList".equals(memberType) ||
-			"LinkedList".equals(memberType) ||
-			"HashSet".equals(memberType) ||
-			"TreeSet".equals(memberType) ||
-			"LinkedSet".equals(memberType) ||
-			"HashMap".equals(memberType)) return true;
-		
-		return false;
 	}
 }

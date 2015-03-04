@@ -4,56 +4,55 @@ import tool.XMLBean;
 
 public class ContentKit implements ContentGenerator{
 
-	public static int judgeByType (String memberName,String memberType,StringBuffer fileContent){
+	public static String getStrBeforeLeftAngleBracket (String memberType,String strDefault){
 		
-		if(	"byte".equals(memberType) ||
-			"short".equals(memberType) ||
-			"int".equals(memberType) ||
-			"long".equals(memberType) ||
-			"float".equals(memberType) ||
-			"double".equals(memberType) ||
-			"char".equals(memberType) ||
-			"boolean".equals(memberType)){
+		String strType = strDefault;
+		
+		if(memberType.contains("<")) strType = memberType.substring(0, memberType.indexOf("<"));
+		
+		return strType;		
+	}
+	
+	public static boolean isBasicType(String strType){
+		
+		if(	"byte".equals(strType) ||
+			"short".equals(strType) ||
+			"int".equals(strType) ||
+			"long".equals(strType) ||
+			"float".equals(strType) ||
+			"double".equals(strType) ||
+			"char".equals(strType) ||
+			"boolean".equals(strType)) return true;
+				
+		return false;
+	}
+	
+	public static boolean isSubsetsOfListSetMap(String strType){
+		
+		if( "ArrayList".equals(strType) ||
+			"LinkedList".equals(strType) ||
+			"HashSet".equals(strType) ||
+			"TreeSet".equals(strType) ||
+			"LinkedSet".equals(strType) ||
+			"HashMap".equals(strType)) return true;
+		
+		return false;
+	}
+	
+	public static boolean isSetsOfListSetMap(String strType){
+		
+		if( "Map".equals(strType) ||
+			"List".equals(strType) ||
+			"Set".equals(strType) ){
 			
-			return 1;
+			return true;
 			
-		}else if("String".equals(memberType)){
+		} else if(isSubsetsOfListSetMap(strType)){
 			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("\"\";").append(ENTER);	
-			
-			return 2;
-			
-		}else if("Map<".equals(memberType.substring(0, 4))){
-			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Hash").append(memberType).append("();").append(ENTER);	
-			
-			return 3;
-			
-		}else if("List<".equals(memberType.substring(0, 5))){
-			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Array").append(memberType).append("();").append(ENTER);	
-						
-			return 4;
-			
-		}else if("Set<".equals(memberType.substring(0, 4))){
-			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Hash").append(memberType).append("();").append(ENTER);
-			
-			return 5;
-			
-		}else{
-			
-			return 0;
-			
+			return true;
 		}
+
+			return false;
 	}
 	
 	public void generateContent(StringBuffer fileContent, XMLBean xb) {
