@@ -66,17 +66,17 @@ public class BHeroAttribute implements java.io.Serializable {
 
 	public BHeroAttribute () {
 		this.name = "";
-		this.equips = new HashMap<Integer,Integer>();
-		this.poses = new ArrayList<BHeroPosition>();
+		this.equips = new HashMap();
+		this.poses = new ArrayList();
 	}
 
-	public BHeroAttribute ( int level, String name, int heroid, Map<Integer,Integer> equips, int exp, List<BHeroPosition> poses) {
+	public BHeroAttribute (int level,String name,int heroid,Map<Integer,Integer> equips,int exp,List<BHeroPosition> poses) {
 		this.level = level;
 		this.name = (name != null ? name : "");
 		this.heroid = heroid;
-		this.equips = new HashMap<Integer,Integer> (); if(equips != null) this.equips.addAll(equips);
+		this.equips = new HashMap(); if(null != equips) this.equips.putAll(equips);
 		this.exp = exp;
-		this.poses = new ArrayList<BHeroPosition> (); if(poses != null) this.poses.addAll(poses);
+		this.poses = new ArrayList(); if(null != poses) this.poses.addAll(poses);
 	}
 
 }

@@ -45,7 +45,7 @@ public class BArmyAttribute implements java.io.Serializable {
 		this.name = "";
 	}
 
-	public BArmyAttribute ( int level, int armyid, String name, int exp) {
+	public BArmyAttribute (int level,int armyid,String name,int exp) {
 		this.level = level;
 		this.armyid = armyid;
 		this.name = (name != null ? name : "");

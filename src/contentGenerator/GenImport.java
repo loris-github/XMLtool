@@ -19,32 +19,31 @@ public class GenImport implements ContentGenerator{
 		
 		for(String memberType: memberTypes) {
 			
-			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType, "*");
-
-			if("Map".equals(strType) ||"Map[]".equals(strType)){
+			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType);
+			
+			if(ContentKit.iskindOf(ContentKit.interCollecType,strType)){
+								
+				String[] strOfSentence = ContentKit.interCollecType.get(strType);				
+				String strConstruct = strOfSentence[0];				
+				strImports.add(new String("import java.util." + strType + SEMICOLON ));
+				strImports.add(new String("import java.util." + strConstruct + SEMICOLON ));
 				
-				strImports.add("import java.util.Map;");
-				strImports.add("import java.util.HashMap;");
+			} else if(ContentKit.iskindOf (ContentKit.interCollecArrayType, strType)){
 				
-			} else if("List".equals(strType) ||"List[]".equals(strType)){
+				String[] strOfSentence = ContentKit.interCollecArrayType.get(strType);				
+				String strConstruct = strOfSentence[0];				
+				strImports.add(new String("import java.util." + strConstruct + SEMICOLON ));
+								
+			} else if(ContentKit.iskindOf (ContentKit.classCollecType, strType)){
+			
+				strImports.add(new String("import java.util." + strType + SEMICOLON ));
 				
-				strImports.add("import java.util.List;");
-				strImports.add("import java.util.ArrayList;");
-				
-			} else if("Set".equals(strType) ||"Set[]".equals(strType)){
-				
-				strImports.add("import java.util.Set;");
-				strImports.add("import java.util.HashSet;");
-				
-			} else if(ContentKit.isSubsetsOfListSetMap(strType)){
-
-				strImports.add("import java.util."+strType+";");
 			}
 	
 		}
-		
-		
-		if(strImports.size()>0) {		
+				
+		if(strImports.size()>0) {
+			
 			for(String strImport : strImports) fileContent.append(strImport).append(ENTER);	
 			fileContent.append(ENTER);
 		}

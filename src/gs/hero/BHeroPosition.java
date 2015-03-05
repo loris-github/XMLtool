@@ -44,7 +44,7 @@ public class BHeroPosition implements java.io.Serializable {
 	public BHeroPosition () {
 	}
 
-	public BHeroPosition ( float posX, float posY, float posZ, int heroid) {
+	public BHeroPosition (float posX,float posY,float posZ,int heroid) {
 		this.posX = posX;
 		this.posY = posY;
 		this.posZ = posZ;

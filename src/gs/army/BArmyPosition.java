@@ -44,7 +44,7 @@ public class BArmyPosition implements java.io.Serializable {
 	public BArmyPosition () {
 	}
 
-	public BArmyPosition ( float posX, float posY, float posZ, int armyid) {
+	public BArmyPosition (float posX,float posY,float posZ,int armyid) {
 		this.posX = posX;
 		this.posY = posY;
 		this.posZ = posZ;

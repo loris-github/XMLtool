@@ -32,7 +32,7 @@ public class GenConstructor implements ContentGenerator {
 			
 			String memberType = members.get(memberName);
 						
-			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType, memberType);
+			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType);
 			
 			genByType(strType,memberName,memberType,fileContent);
 
@@ -55,24 +55,30 @@ public class GenConstructor implements ContentGenerator {
 			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
 			.append("\"\";").append(ENTER);	
 			
-		} else if("Map".equals(strType) || "Set".equals(strType)) { 
+		} else if(ContentKit.isCollectionType(strType)) {
 			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Hash").append(memberType).append("();").append(ENTER);
+			String[] strOfSentence = ContentKit.collectionType.get(strType);
 			
-		} else if("List".equals(strType)) {
-			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
-			.append("new").append(SPACE).append("Array").append(memberType).append("();").append(ENTER);	
+			String strConstruct = strOfSentence[0];
+						
+			genSentenceForSetListMap(memberName,memberType,fileContent,strConstruct);
 
-		} else { 
+		} else {
+			
 			fileContent.append(TAB).append(TAB)
 			.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
 			.append("new").append(SPACE).append(memberType).append("()").append(SEMICOLON).append(ENTER);		
 		}
 		
 	}
+	
+	private void genSentenceForSetListMap(String memberName,String memberType,StringBuffer fileContent,String strConstruct){
+		
+		fileContent.append(TAB).append(TAB)
+		.append("this.").append(memberName).append(SPACE).append("=").append(SPACE)
+		.append("new").append(SPACE).append(strConstruct).append("()").append(SEMICOLON).append(ENTER);
+		
+	}
+	
 	
 }

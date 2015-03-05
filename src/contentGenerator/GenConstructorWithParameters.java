@@ -28,7 +28,7 @@ public class GenConstructorWithParameters implements ContentGenerator {
 			
 			String memberType = members.get(memberName);
 			
-			fileContent.append(strComma).append(SPACE).append(memberType).append(SPACE).append(memberName);
+			fileContent.append(strComma).append(memberType).append(SPACE).append(memberName);
 			
 			strComma = ",";
 			
@@ -40,7 +40,7 @@ public class GenConstructorWithParameters implements ContentGenerator {
 			
 			String memberType = members.get(memberName);
 			
-			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType, memberType);
+			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType);
 			
 			genByType(strType,memberName,memberType,fileContent);
 			
@@ -67,32 +67,15 @@ public class GenConstructorWithParameters implements ContentGenerator {
 			.append("!=").append(SPACE).append("null").append(SPACE).append("?").append(SPACE)
 			.append(memberName).append(SPACE).append(":").append(SPACE).append("\"\")").append(SEMICOLON).append(ENTER);
 		
-		} else if("Map".equals(strType) || "Set".equals(strType)) {	
+		} else if(ContentKit.isCollectionType(strType)) {	
 			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE)
-			.append("=").append(SPACE).append("new").append(SPACE).append("Hash").append(memberType).append(SPACE)
-			.append("()").append(SEMICOLON).append(SPACE).append("if(").append(memberName).append(SPACE).append("!=")
-			.append(SPACE).append("null)").append(SPACE).append("this.").append(memberName)
-			.append(".addAll(").append(memberName).append(")").append(SEMICOLON).append(ENTER);
-
-		} else if("List".equals(strType)) {	
+			String[] strOfSentence = ContentKit.collectionType.get(strType);
 			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE)
-			.append("=").append(SPACE).append("new").append(SPACE).append("Array").append(memberType).append(SPACE)
-			.append("()").append(SEMICOLON).append(SPACE).append("if(").append(memberName).append(SPACE).append("!=")
-			.append(SPACE).append("null)").append(SPACE).append("this.").append(memberName)
-			.append(".addAll(").append(memberName).append(")").append(SEMICOLON).append(ENTER);
-
-		} else if(ContentKit.isSubsetsOfListSetMap(strType)) { 
+			String strConstruct = strOfSentence[0];
 			
-			fileContent.append(TAB).append(TAB)
-			.append("this.").append(memberName).append(SPACE)
-			.append("=").append(SPACE).append("new").append(SPACE).append(memberType).append(SPACE)
-			.append("()").append(SEMICOLON).append(SPACE).append("if(").append(memberName).append(SPACE).append("!=")
-			.append(SPACE).append("null)").append(SPACE).append("this.").append(memberName)
-			.append(".addAll(").append(memberName).append(")").append(SEMICOLON).append(ENTER);
+			String methodName = strOfSentence[1];
+			
+			genSentenceForSetListMap(memberName,memberType,fileContent,strConstruct,methodName);
 
 		} else { 
 			
@@ -103,6 +86,17 @@ public class GenConstructorWithParameters implements ContentGenerator {
 			.append(memberType).append(".clone()").append(SPACE).append(":").append(SPACE).append("new")
 			.append(SPACE).append(memberType).append("())").append(SEMICOLON).append(ENTER);	
 		}	
+		
+	}
+
+	private void genSentenceForSetListMap(String memberName,String memberType,StringBuffer fileContent,String strConstruct,String methodName){
+			
+		fileContent.append(TAB).append(TAB)
+		.append("this.").append(memberName).append(SPACE)
+		.append("=").append(SPACE).append("new").append(SPACE).append(strConstruct).append("()").append(SEMICOLON)
+		.append(SPACE).append("if(null").append(SPACE).append("!=").append(SPACE).append(memberName).append(")").append(SPACE)
+		.append("this.").append(memberName).append(".").append(methodName).append("(").append(memberName).append(")")
+		.append(SEMICOLON).append(ENTER);
 		
 	}
 
