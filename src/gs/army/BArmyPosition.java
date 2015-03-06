@@ -51,4 +51,15 @@ public class BArmyPosition implements java.io.Serializable {
 		this.armyid = armyid;
 	}
 
+	public BArmyPosition clone() {
+		return new BArmyPosition(posX,posY,posZ,armyid);
+	}
+
+	public void reset() {
+		posX = 0;
+		posY = 0;
+		posZ = 0;
+		armyid = 0;
+	}
+
 }

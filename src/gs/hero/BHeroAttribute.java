@@ -79,4 +79,17 @@ public class BHeroAttribute implements java.io.Serializable {
 		this.poses = new ArrayList(); if(null != poses) this.poses.addAll(poses);
 	}
 
+	public BHeroAttribute clone() {
+		return new BHeroAttribute(level,name,heroid,equips,exp,poses);
+	}
+
+	public void reset() {
+		level = 0;
+		name = "";
+		heroid = 0;
+		this.equips.clear();
+		exp = 0;
+		this.poses.clear();
+	}
+
 }

@@ -52,4 +52,15 @@ public class BArmyAttribute implements java.io.Serializable {
 		this.exp = exp;
 	}
 
+	public BArmyAttribute clone() {
+		return new BArmyAttribute(level,armyid,name,exp);
+	}
+
+	public void reset() {
+		level = 0;
+		armyid = 0;
+		name = "";
+		exp = 0;
+	}
+
 }

@@ -51,4 +51,15 @@ public class BHeroPosition implements java.io.Serializable {
 		this.heroid = heroid;
 	}
 
+	public BHeroPosition clone() {
+		return new BHeroPosition(posX,posY,posZ,heroid);
+	}
+
+	public void reset() {
+		posX = 0;
+		posY = 0;
+		posZ = 0;
+		heroid = 0;
+	}
+
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import contentGenerator.GenClassDeclaration;
+import contentGenerator.GenClone;
 import contentGenerator.GenConstructor;
 import contentGenerator.GenConstructorWithParameters;
 import contentGenerator.GenGetersAndSeters;
@@ -15,6 +16,7 @@ import contentGenerator.ContentGenerator;
 import contentGenerator.GenImport;
 import contentGenerator.GenPackage;
 import contentGenerator.GenPrivateProperty;
+import contentGenerator.GenReset;
 
 public class JFCreater implements ContentGenerator{
 	
@@ -25,7 +27,9 @@ public class JFCreater implements ContentGenerator{
 		new GenPrivateProperty(), 
 		new GenGetersAndSeters(),
 		new GenConstructor(),
-		new GenConstructorWithParameters()
+		new GenConstructorWithParameters(),
+		new GenClone(),
+		new GenReset()
 };
 	
 	public void generateContent(StringBuffer fileContent,XMLBean xb) {
