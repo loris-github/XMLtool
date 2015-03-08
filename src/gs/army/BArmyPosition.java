@@ -62,4 +62,44 @@ public class BArmyPosition implements java.io.Serializable {
 		armyid = 0;
 	}
 
+	public int hashCode() {
+		int h = (int)serialVersionUID;
+		h = h * 31 + 1 + (int)this.posX;
+		h = h * 31 + 1 + (int)this.posY;
+		h = h * 31 + 1 + (int)this.posZ;
+		h = h * 31 + 1 + this.armyid;
+		return h;
+	}
+
+	public void assign(BArmyPosition a) {
+		if(a == this) return;
+		if(a == null) {reset(); return;}
+		this.posX = a.posX;
+		this.posY = a.posY;
+		this.posZ = a.posZ;
+		this.armyid = a.armyid;
+	}
+
+	public boolean equals(Object o)
+{
+		if(o == this) return true;
+		if(!(o instanceof BArmyPosition)) return false;
+		BArmyPosition e = (BArmyPosition)o;
+		if(this.posX != e.posX) return false;
+		if(this.posY != e.posY) return false;
+		if(this.posZ != e.posZ) return false;
+		if(this.armyid != e.armyid) return false;
+		return true;
+	}
+
+	public int compare(BArmyPosition c) {
+		if(c == this) return 0;
+		if(c == null) return 1;
+		int i;
+		i = Float.compare(this.posX, c.posX);; if(i!= 0) return i;
+		i = Float.compare(this.posY, c.posY);; if(i!= 0) return i;
+		i = Float.compare(this.posZ, c.posZ);; if(i!= 0) return i;
+		i = this.armyid - c.armyid; if(i!= 0) return i;
+		return 0;
+	}
 }

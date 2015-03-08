@@ -1,8 +1,12 @@
 package contentGenerator;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import tool.XMLBean;
 
@@ -21,9 +25,10 @@ public class ContentKit implements ContentGenerator{
 	public static HashMap<String,String[]> classCollecType = new HashMap<String,String[]>();
 
 	public static HashMap<String,String[]> collectionType = new HashMap<String,String[]>();
+
 	
 	static{
-		
+				
 		typeSet_Basic.add("byte");
 		typeSet_Basic.add("short");
 		typeSet_Basic.add("int");
@@ -99,6 +104,57 @@ public class ContentKit implements ContentGenerator{
 		}
 		
 		return false;
+	}
+	
+	public static <T extends Comparable<T>> int compareTo(Collection<T> a, Collection<T> b){
+		int c = a.size() - b.size();
+		if(c != 0) return c;
+		Iterator<T> ia = a.iterator();
+		Iterator<T> ib = b.iterator();
+		while(ia.hasNext())
+		{
+			c = ia.next().compareTo(ib.next());
+			if(c != 0) return c;
+		}
+		return 0;
+	}
+	
+	public static <K extends Comparable<K>, V extends Comparable<V>> int compareTo(Map<K, V> a, Map<K, V> b)
+	{
+		int c = a.size() - b.size();
+		if(c != 0) return c;
+		Iterator<Entry<K, V>> ia = a.entrySet().iterator();
+		Iterator<Entry<K, V>> ib = b.entrySet().iterator();
+		while(ia.hasNext())
+		{
+			Entry<K, V> ea = ia.next();
+			Entry<K, V> eb = ib.next();
+			c = ea.getKey().compareTo(eb.getKey());
+			if(c != 0) return c;
+			c = ea.getValue().compareTo(eb.getValue());
+			if(c != 0) return c;
+		}
+		return 0;
+	}
+	
+	public static StringBuilder append(StringBuilder s, Collection<?> c)
+	{
+		if(c.isEmpty()) return s.append("{},");
+		s.append('{');
+		for(Object o : c)
+			s.append(o).append(',');
+		s.setCharAt(s.length() - 1, '}');
+		return s.append(',');
+	}
+	
+	public static StringBuilder append(StringBuilder s, Map<?, ?> m)
+	{
+		if(m.isEmpty()) return s.append("{},");
+		s.append('{');
+		for(Entry<?, ?> e : m.entrySet())
+			s.append(e.getKey()).append(',').append(e.getValue()).append(';');
+		s.setCharAt(s.length() - 1, '}');
+		return s.append(',');
 	}
 	
 	public void generateContent(StringBuffer fileContent, XMLBean xb) {

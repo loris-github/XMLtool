@@ -10,7 +10,6 @@ public class GenReset implements ContentGenerator {
 	@Override
 	public void generateContent(StringBuffer fileContent, XMLBean xb) {
 		
-		String beanName = xb.getBeanName();
 		Map<String,String> members = xb.getMembers();
 		Set<String> memberNames = members.keySet();
 		

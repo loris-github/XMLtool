@@ -63,4 +63,44 @@ public class BArmyAttribute implements java.io.Serializable {
 		exp = 0;
 	}
 
+	public int hashCode() {
+		int h = (int)serialVersionUID;
+		h = h * 31 + 1 + this.level;
+		h = h * 31 + 1 + this.armyid;
+		h = h * 31 + 1 + this.name.hashCode();
+		h = h * 31 + 1 + this.exp;
+		return h;
+	}
+
+	public void assign(BArmyAttribute a) {
+		if(a == this) return;
+		if(a == null) {reset(); return;}
+		this.level = a.level;
+		this.armyid = a.armyid;
+		this.name = (a.name != null ? a.name : "");
+		this.exp = a.exp;
+	}
+
+	public boolean equals(Object o)
+{
+		if(o == this) return true;
+		if(!(o instanceof BArmyAttribute)) return false;
+		BArmyAttribute e = (BArmyAttribute)o;
+		if(this.level != e.level) return false;
+		if(this.armyid != e.armyid) return false;
+		if(!this.name.equals(e.name)) return false;
+		if(this.exp != e.exp) return false;
+		return true;
+	}
+
+	public int compare(BArmyAttribute c) {
+		if(c == this) return 0;
+		if(c == null) return 1;
+		int i;
+		i = this.level - c.level; if(i!= 0) return i;
+		i = this.armyid - c.armyid; if(i!= 0) return i;
+		i = this.name.compareTo(c.name); if(i!= 0) return i;
+		i = this.exp - c.exp; if(i!= 0) return i;
+		return 0;
+	}
 }

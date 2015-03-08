@@ -92,4 +92,52 @@ public class BHeroAttribute implements java.io.Serializable {
 		this.poses.clear();
 	}
 
+	public int hashCode() {
+		int h = (int)serialVersionUID;
+		h = h * 31 + 1 + this.level;
+		h = h * 31 + 1 + this.name.hashCode();
+		h = h * 31 + 1 + this.heroid;
+		h = h * 31 + 1 + this.equips.hashCode();
+		h = h * 31 + 1 + this.exp;
+		h = h * 31 + 1 + this.poses.hashCode();
+		return h;
+	}
+
+	public void assign(BHeroAttribute a) {
+		if(a == this) return;
+		if(a == null) {reset(); return;}
+		this.level = a.level;
+		this.name = (a.name != null ? a.name : "");
+		this.heroid = a.heroid;
+		this.equips.clear(); if(a.equips != null) this.equips.putAll(a.equips);
+		this.exp = a.exp;
+		this.poses.clear(); if(a.poses != null) this.poses.addAll(a.poses);
+	}
+
+	public boolean equals(Object o)
+{
+		if(o == this) return true;
+		if(!(o instanceof BHeroAttribute)) return false;
+		BHeroAttribute e = (BHeroAttribute)o;
+		if(this.level != e.level) return false;
+		if(!this.name.equals(e.name)) return false;
+		if(this.heroid != e.heroid) return false;
+		if(!this.equips.equals(e.equips)) return false;
+		if(this.exp != e.exp) return false;
+		if(!this.poses.equals(e.poses)) return false;
+		return true;
+	}
+
+	public int compare(BHeroAttribute c) {
+		if(c == this) return 0;
+		if(c == null) return 1;
+		int i;
+		i = this.level - c.level; if(i!= 0) return i;
+		i = this.name.compareTo(c.name); if(i!= 0) return i;
+		i = this.heroid - c.heroid; if(i!= 0) return i;
+		i = contentGenerator.ContentKit.compareTo(this.equips,c.equips); if(i!= 0) return i;
+		i = this.exp - c.exp; if(i!= 0) return i;
+		i = contentGenerator.ContentKit.compareTo(this.poses,c.poses); if(i!= 0) return i;
+		return 0;
+	}
 }

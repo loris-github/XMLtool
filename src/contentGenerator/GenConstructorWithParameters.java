@@ -67,7 +67,7 @@ public class GenConstructorWithParameters implements ContentGenerator {
 			.append("!=").append(SPACE).append("null").append(SPACE).append("?").append(SPACE)
 			.append(memberName).append(SPACE).append(":").append(SPACE).append("\"\")").append(SEMICOLON).append(ENTER);
 		
-		} else if(ContentKit.isCollectionType(strType)) {	
+		} else if(ContentKit.isCollectionType(strType)) {
 			
 			String[] strOfSentence = ContentKit.collectionType.get(strType);
 			
