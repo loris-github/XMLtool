@@ -137,7 +137,7 @@ public class ContentKit implements ContentGenerator{
 		return 0;
 	}
 	
-	public static StringBuilder append(StringBuilder s, Collection<?> c)
+	public static StringBuffer append(StringBuffer s, Collection<?> c)
 	{
 		if(c.isEmpty()) return s.append("{},");
 		s.append('{');
@@ -147,7 +147,7 @@ public class ContentKit implements ContentGenerator{
 		return s.append(',');
 	}
 	
-	public static StringBuilder append(StringBuilder s, Map<?, ?> m)
+	public static StringBuffer append(StringBuffer s, Map<?, ?> m)
 	{
 		if(m.isEmpty()) return s.append("{},");
 		s.append('{');

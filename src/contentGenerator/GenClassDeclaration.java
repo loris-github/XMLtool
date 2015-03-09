@@ -12,10 +12,10 @@ public class GenClassDeclaration implements ContentGenerator {
 		String className = Character.toUpperCase(beanName.charAt(0))
 			      + beanName.substring(1);
 		
-		fileContent.append("public class ")
-	      .append(className)
-	      .append(" implements java.io.Serializable ")// 实现序列化接口
-	      .append("{")
+		fileContent.append("public").append(SPACE).append("class").append(SPACE)
+	      .append(className).append(SPACE).append("implements").append(SPACE)
+	      .append("Comparable<").append(beanName).append(">,").append(SPACE)
+	      .append("java.io.Serializable").append(SPACE).append("{") // 实现序列化接口
 	      .append(ENTER)
 	      .append(ENTER)
 	      .append(TAB)

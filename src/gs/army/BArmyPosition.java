@@ -1,6 +1,6 @@
 package gs.army;
 
-public class BArmyPosition implements java.io.Serializable {
+public class BArmyPosition implements Comparable<BArmyPosition>, java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -92,7 +92,7 @@ public class BArmyPosition implements java.io.Serializable {
 		return true;
 	}
 
-	public int compare(BArmyPosition c) {
+	public int compareTo(BArmyPosition c) {
 		if(c == this) return 0;
 		if(c == null) return 1;
 		int i;
@@ -101,5 +101,13 @@ public class BArmyPosition implements java.io.Serializable {
 		i = Float.compare(this.posZ, c.posZ);; if(i!= 0) return i;
 		i = this.armyid - c.armyid; if(i!= 0) return i;
 		return 0;
+	}
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		s.append(this.posX).append(",");
+		s.append(this.posY).append(",");
+		s.append(this.posZ).append(",");
+		s.append(this.armyid).append(",");
+		return s.append("}").toString();
 	}
 }

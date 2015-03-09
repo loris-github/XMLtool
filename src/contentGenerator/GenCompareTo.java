@@ -15,7 +15,7 @@ public class GenCompareTo implements ContentGenerator {
 		Set<String> memberNames = members.keySet();
 
 		fileContent.append(TAB).append(PUBLIC).append(SPACE)
-	       .append("int").append(SPACE).append("compare(")
+	       .append("int").append(SPACE).append("compareTo(")
 	       .append(beanName).append(SPACE).append("c)")
 	       .append(SPACE).append("{").append(ENTER);
 		

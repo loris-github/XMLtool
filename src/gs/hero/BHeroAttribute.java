@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BHeroAttribute implements java.io.Serializable {
+public class BHeroAttribute implements Comparable<BHeroAttribute>, java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -128,7 +128,7 @@ public class BHeroAttribute implements java.io.Serializable {
 		return true;
 	}
 
-	public int compare(BHeroAttribute c) {
+	public int compareTo(BHeroAttribute c) {
 		if(c == this) return 0;
 		if(c == null) return 1;
 		int i;
@@ -139,5 +139,15 @@ public class BHeroAttribute implements java.io.Serializable {
 		i = this.exp - c.exp; if(i!= 0) return i;
 		i = contentGenerator.ContentKit.compareTo(this.poses,c.poses); if(i!= 0) return i;
 		return 0;
+	}
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		s.append(this.level).append(",");
+		s.append(this.name).append(",");
+		s.append(this.heroid).append(",");
+		contentGenerator.ContentKit.append(s, this.equips);
+		s.append(this.exp).append(",");
+		contentGenerator.ContentKit.append(s, this.poses);
+		return s.append("}").toString();
 	}
 }

@@ -1,6 +1,6 @@
 package gs.army;
 
-public class BArmyAttribute implements java.io.Serializable {
+public class BArmyAttribute implements Comparable<BArmyAttribute>, java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -93,7 +93,7 @@ public class BArmyAttribute implements java.io.Serializable {
 		return true;
 	}
 
-	public int compare(BArmyAttribute c) {
+	public int compareTo(BArmyAttribute c) {
 		if(c == this) return 0;
 		if(c == null) return 1;
 		int i;
@@ -102,5 +102,13 @@ public class BArmyAttribute implements java.io.Serializable {
 		i = this.name.compareTo(c.name); if(i!= 0) return i;
 		i = this.exp - c.exp; if(i!= 0) return i;
 		return 0;
+	}
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		s.append(this.level).append(",");
+		s.append(this.armyid).append(",");
+		s.append(this.name).append(",");
+		s.append(this.exp).append(",");
+		return s.append("}").toString();
 	}
 }

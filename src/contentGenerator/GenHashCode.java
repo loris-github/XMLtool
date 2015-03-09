@@ -55,11 +55,6 @@ public class GenHashCode implements ContentGenerator {
 			
 		}
 		
-		
-		
-		
 	}
-	
-	
-	
+
 }

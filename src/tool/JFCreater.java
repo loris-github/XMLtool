@@ -23,7 +23,8 @@ public class JFCreater implements ContentGenerator{
 		new GenHashCode(),
 		new GenAssign(),
 		new GenEquals(),
-		new GenCompareTo()
+		new GenCompareTo(),
+		new GenToString()
 };
 	
 	public void generateContent(StringBuffer fileContent,XMLBean xb) {
