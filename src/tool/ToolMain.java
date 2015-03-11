@@ -8,7 +8,13 @@ public class ToolMain {
 		
 		String strXMLPath = "gnet.gsd(1).xml";
 
+		long start = System.currentTimeMillis();
+		
 		processWithXFReader (strXMLPath,"src");
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("费时:" + (end - start));
         
     }
 	

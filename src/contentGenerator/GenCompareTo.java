@@ -61,7 +61,7 @@ public class GenCompareTo implements ContentGenerator {
 			if("float".equals(strType)){
 				
 				strMiddle.append("Float.compare(this.").append(memberName).append(",")
-				.append(SPACE).append("c.").append(memberName).append(");").append(SEMICOLON);
+				.append(SPACE).append("c.").append(memberName).append(")").append(SEMICOLON);
 				
 			} else if("double".equals(strType)){
 				

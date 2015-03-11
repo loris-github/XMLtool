@@ -19,7 +19,6 @@ public class GenAssign implements ContentGenerator {
 	       .append(beanName).append(SPACE).append("a)")
 	       .append(SPACE).append("{").append(ENTER);
 		
-		
 		fileContent.append(TAB).append(TAB)
 		.append("if(a == this) return;").append(ENTER)
 		.append(TAB).append(TAB)
