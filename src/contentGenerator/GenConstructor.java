@@ -24,8 +24,7 @@ public class GenConstructor implements ContentGenerator {
 	       .append(beanName)
 	       .append(SPACE)
 	       .append("()").append(" {").append(ENTER);
-		
-		
+	
 		Set<String> memberNames = members.keySet();
 
 		for(String memberName: memberNames){
@@ -79,6 +78,5 @@ public class GenConstructor implements ContentGenerator {
 		.append("new").append(SPACE).append(strConstruct).append("()").append(SEMICOLON).append(ENTER);
 		
 	}
-	
 	
 }

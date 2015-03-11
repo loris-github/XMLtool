@@ -11,10 +11,16 @@ public class Constructor extends Section {
 	
 	private static StringBuilder getBlock(){
 		StringBuilder block = new StringBuilder();
-		
-		
-		
+
 		return block;		
+	}
+	
+	private void genForString(String memberName,String memberType){
+		
+		joint (content,
+				TAB,TAB,
+				THIS,DOT,memberName,SPACE,EQUAL,SPACE,QUOTE,QUOTE,
+				ENTER);
 	}
 	
 	@Override

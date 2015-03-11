@@ -29,8 +29,7 @@ public interface CharacterAndSymbol {
 	public static final String DOT = ".";
 	public static final String COLON = ":"; // colon
 	public static final String SEMI = ";"; // semicolon
-	public static final String ASSIGN = "="; // Assignment operator
-	public static final String EQUAL = "=="; // equal sign
+	public static final String EQUAL = "="; // equal sign
 	public static final String QUSET = "?"; //question mark
 	
 	public static final String LRB = "("; // left round bracket
