@@ -15,6 +15,7 @@ public interface CharacterAndSymbol {
 	public static final String CHAR = "char";	
 	public static final String BOOLEAN = "boolean";
 	public static final String STRING = "string";
+	
 	public static final String THIS = "this";
 	public static final String NULL = "null";
 	public static final String RETURN = "return";

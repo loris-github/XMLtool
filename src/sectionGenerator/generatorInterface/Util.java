@@ -23,10 +23,10 @@ public class Util implements CharacterAndSymbol{
 	private static HashMap<String,String[]> classCollecType = new HashMap<String,String[]>();
 
 	private static HashMap<String,String[]> collectionType = new HashMap<String,String[]>();
-
 	
+
 	static{
-				
+		
 		typeSet_Basic.add("byte");
 		typeSet_Basic.add("short");
 		typeSet_Basic.add("int");
@@ -60,6 +60,25 @@ public class Util implements CharacterAndSymbol{
 
 		typeSet_Collection.addAll(collectionType.keySet());
 		
+	}
+	// 将类型策略组 改成 ID策略组
+	
+
+	
+	// 生成方法Title,大括号之前的字符
+	protected static StringBuilder getMethodTitle(String[] Title,String[] args){
+		
+		StringBuilder methodTitle = new StringBuilder(TAB);
+		
+		for(String part : Title) methodTitle.append(part).append(SPACE);
+		
+		methodTitle.append(LRB);
+		
+		for(String arg : args) methodTitle.append(arg).append(SPACE);
+		
+		methodTitle.append(RRB);
+		
+		return methodTitle;
 	}
 	
 	//截取尖括号左边的字符

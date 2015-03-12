@@ -5,6 +5,11 @@ import tool.XMLBean;
 
 public class Constructor extends Section {
 	
+	StringBuilder methodTitle;
+	StringBuilder upperPart;
+	StringBuilder middlePart;
+	StringBuilder lowerPart;
+	
 	Constructor(XMLBean xb) {
 		super(xb);
 	}
@@ -13,6 +18,26 @@ public class Constructor extends Section {
 		StringBuilder block = new StringBuilder();
 
 		return block;		
+	}
+	
+	
+	private void genMiddlePart(int Result){
+		
+		//获取类型字符串
+		
+		//根据判断结果生成处理
+		switch(Result){
+		
+		case 1 :
+			break;
+			
+		case 2 :
+			break;
+			
+		case 3 :
+			break;
+		
+		}
 	}
 	
 	private void genForString(String memberName,String memberType){

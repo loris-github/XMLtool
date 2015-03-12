@@ -7,6 +7,8 @@ public class ToolMain {
 	public static void main(String[] args) {
 		
 		String strXMLPath = "gnet.gsd(1).xml";
+		
+		System.gc();
 
 		long start = System.currentTimeMillis();
 		

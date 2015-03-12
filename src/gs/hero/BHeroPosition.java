@@ -96,9 +96,9 @@ public class BHeroPosition implements Comparable<BHeroPosition>, java.io.Seriali
 		if(c == this) return 0;
 		if(c == null) return 1;
 		int i;
-		i = Float.compare(this.posX, c.posX);; if(i!= 0) return i;
-		i = Float.compare(this.posY, c.posY);; if(i!= 0) return i;
-		i = Float.compare(this.posZ, c.posZ);; if(i!= 0) return i;
+		i = Float.compare(this.posX, c.posX); if(i!= 0) return i;
+		i = Float.compare(this.posY, c.posY); if(i!= 0) return i;
+		i = Float.compare(this.posZ, c.posZ); if(i!= 0) return i;
 		i = this.heroid - c.heroid; if(i!= 0) return i;
 		return 0;
 	}
