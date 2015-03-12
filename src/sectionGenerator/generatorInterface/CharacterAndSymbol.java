@@ -2,10 +2,11 @@ package sectionGenerator.generatorInterface;
 
 public interface CharacterAndSymbol {
 	
+	public static final StringBuilder nothing = new StringBuilder();	
 	public static final String PRIVATE = "private";
 	public static final String PUBLIC = "public";
-	public static final String IF = "if";
-	
+	public static final String NEW = "new";
+	public static final String IF = "if";			
 	public static final String BYTE = "byte";
 	public static final String SHORT = "short";
 	public static final String INT = "int";
@@ -16,11 +17,23 @@ public interface CharacterAndSymbol {
 	public static final String BOOLEAN = "boolean";
 	public static final String STRING = "string";
 	
+	public static final String MAP = "Map";
+	public static final String LIST = "List";
+	public static final String SET = "Set";
+	public static final String MAPARRAY = "Map[]";
+	public static final String LISTARRAY = "List[]";
+	public static final String SETARRAY = "Set[]";
+	public static final String HASHMAP = "HashMap";
+	public static final String ARRAYLIST = "ArrayList";
+	public static final String HASHSET = "HashSet";
+	public static final String PUTALL = "putAll";
+	public static final String ADDALL = "addAll";
+
 	public static final String THIS = "this";
 	public static final String NULL = "null";
 	public static final String RETURN = "return";
 	
-	public static final String ASTERISK = "*"; // asterisk 	
+	public static final String ASTERISK = "*"; // asterisk 
 	public static final String COMMA = ","; // comma 
 	public static final String SPACE = " ";
 	public static final String ENTER = "\n";

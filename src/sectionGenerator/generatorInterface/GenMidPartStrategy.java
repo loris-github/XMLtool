@@ -1,38 +1,29 @@
-package tool;
+package sectionGenerator.generatorInterface;
 
 import java.util.Arrays;
 
-import sectionGenerator.generatorInterface.CharacterAndSymbol;
-
 public class GenMidPartStrategy implements CharacterAndSymbol {
-	
-	//支持的类型
-	private static final String[] supportedTypes = {BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN,STRING};
-	
-	
+
 	//生成策略列表
-	
+	private static final String[] basicTypes = { BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN };
 	
 	//Constructor
-	private static final String[][] DF_Constructor = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
-													{STRING},
-													{}};
-	
-	public static final int[][] DS_Constructor = getDigiStrategy(DF_Constructor);
-	
+	public static final String[][] CONSTRUCTOR = {	{ STRING }, 
+													basicTypes,
+													{ MAP, MAPARRAY },
+													{ LIST, LISTARRAY, SET, HASHSET }};
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//ConstructorWithParamaeters
-	private static final String[][] DF_ConstructorWithParamaeters = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
+	private static final String[][] CONSTRUCTOR_ARGS = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
 													{STRING},
-													{}}; 
-	
-	public static final int[][] DS_ConstructorWithParamaeters = getDigiStrategy(DF_ConstructorWithParamaeters);
+													{}}; 	
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	//Equals
-	private static final String[][] strategyFor3 = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
+	private static final String[][] strategy_Equals = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
 													{STRING},
 													{}}; 
 	//HashCode
@@ -56,9 +47,23 @@ public class GenMidPartStrategy implements CharacterAndSymbol {
 													{STRING},
 													{}}; 
 	
+	////////////////////////////////////////////////////////////////////////////////////
 	
+	public static int getStrategyID(String strType,String[][] strategy){
+		
+		for(int i = 0, len = strategy.length; i < len; i++){
+			
+			if(Arrays.binarySearch(strategy, strType) > 0) return i;
+			
+		}
+
+		return -1;
+	}
 	
-	private static int[][] getDigiStrategy(String[][] Strategy){
+	/*
+		// public static final int[][] DS_Constructor = getDigiStrategy(DF_Constructor);
+	 
+	 	private static int[][] getDigiStrategy(String[][] Strategy){
 		
 		int outterLength = Strategy.length;
 		
@@ -75,7 +80,7 @@ public class GenMidPartStrategy implements CharacterAndSymbol {
 
 		return digitalizeStrategy;
 	}
-	
+
 	//获得策略ID
 	
 	public static int getStrategy(int typeID,int[][] digiStrategy){
@@ -99,4 +104,6 @@ public class GenMidPartStrategy implements CharacterAndSymbol {
 		
 		return -1;
 	}
+	*/
+	
 }

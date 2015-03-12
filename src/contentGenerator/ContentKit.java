@@ -54,7 +54,7 @@ public class ContentKit implements ContentGenerator{
 		interCollecArrayType.put("Set[]", new String[]{"Set","addAll"});
 		
 		classCollecType.put("HashMap", new String[]{"HashMap","putAll"});
-		classCollecType.put("AarryList", new String[]{"ArrayList","addAll"});
+		classCollecType.put("ArrayList", new String[]{"ArrayList","addAll"});
 		classCollecType.put("HashSet", new String[]{"HashMap","addAll"});
 
 		collectionType.putAll(interCollecType);
