@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import sectionGenerator.*;
+import sectionGenerator.generatorInterface.Section;
 import contentGenerator.*;
 
 public class JFCreater implements ContentGenerator{
@@ -25,7 +27,20 @@ public class JFCreater implements ContentGenerator{
 		new GenEquals(),
 		new GenCompareTo(),
 		new GenToString()
-};
+	};
+	
+	public static Section[] s = {
+		new GConstructor()
+	};
+	
+	
+	public void generateContent(StringBuilder fileContent,XMLBean xb) {
+		
+		for(int i = 0;i<s.length;i++){
+			
+			s[i].appendContent(fileContent, xb);				
+		}
+	}
 	
 	public void generateContent(StringBuffer fileContent,XMLBean xb) {
 
@@ -47,11 +62,13 @@ public class JFCreater implements ContentGenerator{
 				JFCreater jfc = new JFCreater();
 				
 				StringBuffer fileContent = new StringBuffer();
+				
+				StringBuilder content = new StringBuilder();
 
-				jfc.generateContent(fileContent,xb);
+				jfc.generateContent(content,xb);
 				
 				//写入文件
-				jfc.writeToFile(beanFilesFloder,fileContent,xb);
+				jfc.writeToFile(beanFilesFloder,new StringBuffer(content),xb);
 				
 			}			
 			

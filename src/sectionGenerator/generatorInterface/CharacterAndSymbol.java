@@ -2,7 +2,8 @@ package sectionGenerator.generatorInterface;
 
 public interface CharacterAndSymbol {
 	
-	public static final StringBuilder nothing = new StringBuilder();	
+	public static final StringBuilder nothing = new StringBuilder();
+	
 	public static final String PRIVATE = "private";
 	public static final String PUBLIC = "public";
 	public static final String NEW = "new";
@@ -15,7 +16,7 @@ public interface CharacterAndSymbol {
 	public static final String DOUBLE = "double";
 	public static final String CHAR = "char";	
 	public static final String BOOLEAN = "boolean";
-	public static final String STRING = "string";
+	public static final String STRING = "String";
 	
 	public static final String MAP = "Map";
 	public static final String LIST = "List";
@@ -26,8 +27,12 @@ public interface CharacterAndSymbol {
 	public static final String HASHMAP = "HashMap";
 	public static final String ARRAYLIST = "ArrayList";
 	public static final String HASHSET = "HashSet";
+	
 	public static final String PUTALL = "putAll";
 	public static final String ADDALL = "addAll";
+	public static final String COMPARE = "compare";
+	public static final String COMPARETO = "compareTo";
+	
 
 	public static final String THIS = "this";
 	public static final String NULL = "null";

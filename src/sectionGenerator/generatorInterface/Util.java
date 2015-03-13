@@ -10,75 +10,15 @@ import java.util.Map.Entry;
 
 public class Util implements CharacterAndSymbol{
 	
-	private static HashSet<String> typeSet_Basic = new HashSet<String>();
-	private static HashSet<String> typeSet_Collection = new HashSet<String>();
-	
-	//Set List Map
-	private static HashMap<String,String[]> interCollecType = new HashMap<String,String[]>();
-	
-	//Set[] List[] Map[]
-	private static HashMap<String,String[]> interCollecArrayType = new HashMap<String,String[]>();
-	
-	//HashMap AarryList HashSet 等
-	private static HashMap<String,String[]> classCollecType = new HashMap<String,String[]>();
-
-	private static HashMap<String,String[]> collectionType = new HashMap<String,String[]>();
-	
-
-	static{
+	//字符串连接
+	public static StringBuilder joint (StringBuilder sb, CharSequence... args){
 		
-		typeSet_Basic.add("byte");
-		typeSet_Basic.add("short");
-		typeSet_Basic.add("int");
-		typeSet_Basic.add("long");
-		typeSet_Basic.add("float");
-		typeSet_Basic.add("double");
-		typeSet_Basic.add("char");
-		typeSet_Basic.add("boolean");
+		for(CharSequence arg : args){
+			
+			sb.append(arg);
+		}
 		
-		/*
-		 * key是需要对比的字符串
-		 * 第一个字符是 初始化的方法名
-		 * 第二个字符是 用于复制的方法名
-		 * 如果需要新的容器类型支持，需要重新put一条
-		 * */
-
-		interCollecType.put("Map", new String[]{"HashMap","putAll"});
-		interCollecType.put("List", new String[]{"ArrayList","addAll"});
-		interCollecType.put("Set", new String[]{"HashSet","addAll"});
-				
-		interCollecArrayType.put("Map[]", new String[]{"Map","putAll"});
-		interCollecArrayType.put("List[]", new String[]{"List","addAll"});
-		interCollecArrayType.put("Set[]", new String[]{"Set","addAll"});
-		
-		classCollecType.put("HashMap", new String[]{"HashMap","putAll"});
-		classCollecType.put("AarryList", new String[]{"ArrayList","addAll"});
-		classCollecType.put("HashSet", new String[]{"HashMap","addAll"});
-
-		collectionType.putAll(interCollecType);
-		collectionType.putAll(classCollecType);
-
-		typeSet_Collection.addAll(collectionType.keySet());
-		
-	}
-	// 将类型策略组 改成 ID策略组
-	
-
-	
-	// 生成方法Title,大括号之前的字符
-	protected static StringBuilder getMethodTitle(String[] Title,String[] args){
-		
-		StringBuilder methodTitle = new StringBuilder(TAB);
-		
-		for(String part : Title) methodTitle.append(part).append(SPACE);
-		
-		methodTitle.append(LRB);
-		
-		for(String arg : args) methodTitle.append(arg).append(SPACE);
-		
-		methodTitle.append(RRB);
-		
-		return methodTitle;
+		return sb;
 	}
 	
 	//截取尖括号左边的字符
@@ -90,39 +30,6 @@ public class Util implements CharacterAndSymbol{
 		
 		return strType;		
 	}
-	
-	public static boolean iskindOf(HashMap<String,String[]> typeMaps ,String strType){
-
-			Set<String> types = typeMaps.keySet();
-			
-			for(String type : types) {
-				
-				if(type.equals(strType)) return true;			
-			}
-
-		return false;
-	}
-		
-	public static boolean isBasicType(String strType){
-		
-		for(String type : typeSet_Basic) {
-			
-			if(type.equals(strType)) return true;			
-		}
-		
-		return false;
-	}
-	
-	public static boolean isCollectionType(String strType){
-		
-		for(String type : typeSet_Collection) {
-			
-			if(type.equals(strType)) return true;			
-		}
-		
-		return false;
-	}
-
 	
 	public static <T extends Comparable<T>> int compareTo(Collection<T> a, Collection<T> b){
 		int c = a.size() - b.size();
@@ -182,4 +89,5 @@ public class Util implements CharacterAndSymbol{
 		
 		return s;
 	}
+	
 }
