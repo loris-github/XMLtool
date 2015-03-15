@@ -31,7 +31,7 @@ public final class GConstructor extends Section {
 						
 			String strType = Util.getStrBeforeLeftAngleBracket(memberType);
 			
-			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.CONSTRUCTOR);
+			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.GCONSTRUCTOR);
 
 			genByType(midPart, strategyID, memberName, memberType);
 

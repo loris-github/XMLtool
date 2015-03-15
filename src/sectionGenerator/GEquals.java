@@ -7,12 +7,26 @@ import sectionGenerator.generatorInterface.Util;
 public class GEquals extends Section {
 	//生成方法声明部分 + 左大括号
 	protected StringBuilder genDeclarePart(){
-		return nothing;
+		
+		StringBuilder declarePart = new StringBuilder();
+		Util.joint(declarePart, TAB,PUBLIC,SPACE,"boolean",SPACE,"equals","Object",SPACE,"o",RRB,LB,ENTER);
+		
+		return declarePart;
 	}
 	
 	//生成方法内容的上半部分
 	protected StringBuilder genUpperPart(){
-		return nothing;
+		
+		StringBuilder upperPart = new StringBuilder();
+		Util.joint(upperPart, TAB,TAB,IF,LRB,"o",SPACE,EQUAL,EQUAL,SPACE,THIS,RRB,
+				SPACE,RETURN,SPACE,"true",SEMI,ENTER,
+				TAB,TAB,
+				IF,LRB,EXCLA,LRB,"o",SPACE,"instanceof",SPACE,beanName,RRB,RRB,
+				SPACE,RETURN,SPACE,"false",SEMI,ENTER,
+				TAB,TAB,
+				beanName,SPACE,"e",SPACE,EQUAL,SPACE,LRB,beanName,RRB,"o",SEMI,ENTER);
+		
+		return upperPart;
 	}
 	
 	//生成方法内容的中间部分
@@ -27,7 +41,7 @@ public class GEquals extends Section {
 						
 			String strType = Util.getStrBeforeLeftAngleBracket(memberType);
 			
-			int strategyID = GenMidPartStrategy.getStrategyID (strType, );
+			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.GEQUALS);
 
 			genByType(midPart, strategyID, memberName, memberType);
 
@@ -42,34 +56,19 @@ public class GEquals extends Section {
 
 		switch(strategyID){
 
-		case 0 :			
-			break;
-			
-		case 1 :
-			
-			break;
-		
-		case 2 :			
-			
-			break;	
-			
-		case 3 :			
-			
-			break;
-			
-		case 4 :			
-			
+		case 0 :	
+			Util.joint(midPart,TAB,TAB,
+					IF,LRB,THIS,DOT,memberName,SPACE,EXCLA,EQUAL,SPACE,"e",DOT,memberName,RRB,SPACE,
+					RETURN,SPACE,"false",SEMI,ENTER);
 			break;
 			
 		case -1 :			
-			
+			Util.joint(midPart,TAB,TAB,
+					IF,LRB,EXCLA,THIS,DOT,memberName,DOT,"equals",LRB,"e",DOT,memberName,RRB,RRB,SPACE,
+					RETURN,SPACE,"fasle",SEMI,ENTER);
 			break;
 		}
 	
 	}
-	
-	//生成方法内容的下半部分
-	protected StringBuilder genLowerPart(){
-		return nothing;
-	}
+
 }

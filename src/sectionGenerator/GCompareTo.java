@@ -55,7 +55,7 @@ public class GCompareTo extends Section {
 	
 	private void genByType(StringBuilder midPart, int strategyID, String memberName,String memberType){
 		
-		//方法前半部分		
+		//生成语句前半部分	
 		Util.joint(midPart,TAB,TAB,"i",SPACE,EQUAL,SPACE);
 		
 		//根据判断结果生中间部分

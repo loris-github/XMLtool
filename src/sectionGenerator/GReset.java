@@ -7,14 +7,13 @@ import sectionGenerator.generatorInterface.Util;
 public class GReset extends Section {
 	//生成方法声明部分 + 左大括号
 	protected StringBuilder genDeclarePart(){
-		return nothing;
+		
+		StringBuilder declarePart = new StringBuilder();
+		Util.joint(declarePart, TAB,PUBLIC,SPACE,"void",SPACE,"reset",LRB,RRB,SPACE,LB,ENTER);
+		
+		return declarePart;
 	}
-	
-	//生成方法内容的上半部分
-	protected StringBuilder genUpperPart(){
-		return nothing;
-	}
-	
+
 	//生成方法内容的中间部分
 	@Override
 	protected StringBuilder genMidPart(){
@@ -27,7 +26,7 @@ public class GReset extends Section {
 						
 			String strType = Util.getStrBeforeLeftAngleBracket(memberType);
 			
-			int strategyID = GenMidPartStrategy.getStrategyID (strType, );
+			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.GRESET);
 
 			genByType(midPart, strategyID, memberName, memberType);
 
@@ -42,27 +41,20 @@ public class GReset extends Section {
 
 		switch(strategyID){
 
-		case 0 :			
+		case 0 :
+			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,"0",SEMI,ENTER);
 			break;
 			
 		case 1 :
-			
+			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,QUOTE,QUOTE,SEMI,ENTER);
 			break;
 		
 		case 2 :			
-			
+			Util.joint(midPart,TAB,TAB,THIS,DOT,memberName,DOT,"clear",LRB,RRB,SEMI,ENTER);
 			break;	
 			
-		case 3 :			
-			
-			break;
-			
-		case 4 :			
-			
-			break;
-			
 		case -1 :			
-			
+			Util.joint(midPart,TAB,TAB,THIS,DOT,memberName,SPACE,EQUAL,SPACE,NULL,SEMI,ENTER);
 			break;
 		}
 	
@@ -70,6 +62,11 @@ public class GReset extends Section {
 	
 	//生成方法内容的下半部分
 	protected StringBuilder genLowerPart(){
-		return nothing;
+		
+		StringBuilder lowerPart = new StringBuilder();
+		
+		Util.joint(lowerPart,TAB,RB,ENTER,ENTER);
+				
+		return lowerPart;
 	}
 }

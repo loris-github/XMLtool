@@ -7,12 +7,22 @@ import sectionGenerator.generatorInterface.Util;
 public class GHashCode extends Section {
 	//生成方法声明部分 + 左大括号
 	protected StringBuilder genDeclarePart(){
-		return nothing;
+		
+		StringBuilder declarePart = new StringBuilder();
+		Util.joint(declarePart, TAB,PUBLIC,SPACE,"int",SPACE,"hashCode",LRB,RRB,SPACE,LB,ENTER);
+		
+		return declarePart;
 	}
 	
 	//生成方法内容的上半部分
 	protected StringBuilder genUpperPart(){
-		return nothing;
+		
+		StringBuilder upperPart = new StringBuilder();
+		
+		Util.joint(upperPart,TAB,TAB,
+				"int",SPACE,"h",SPACE,EQUAL,SPACE,LRB,"int",RRB,"serialVersionUID",SEMI,ENTER);
+		
+		return upperPart;
 	}
 	
 	//生成方法内容的中间部分
@@ -27,7 +37,7 @@ public class GHashCode extends Section {
 						
 			String strType = Util.getStrBeforeLeftAngleBracket(memberType);
 			
-			int strategyID = GenMidPartStrategy.getStrategyID (strType, );
+			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.GHASHCODE);
 
 			genByType(midPart, strategyID, memberName, memberType);
 
@@ -42,27 +52,18 @@ public class GHashCode extends Section {
 
 		switch(strategyID){
 
-		case 0 :			
+		case 0 :
+			Util.joint(midPart, TAB,TAB,
+					"h",SPACE,EQUAL,SPACE,
+					"h",SPACE,ASTERISK,SPACE,"31",SPACE,"+",SPACE,"1",SPACE,
+					"+",SPACE,LRB,"int",RRB,THIS,DOT,memberName,SEMI,ENTER);			
 			break;
 			
-		case 1 :
-			
-			break;
-		
-		case 2 :			
-			
-			break;	
-			
-		case 3 :			
-			
-			break;
-			
-		case 4 :			
-			
-			break;
-			
-		case -1 :			
-			
+		case -1 :
+			Util.joint(midPart, TAB,TAB,
+					"h",SPACE,EQUAL,SPACE,
+					"h",SPACE,ASTERISK,SPACE,"31",SPACE,"+",SPACE,"1",SPACE,
+					"+",SPACE,THIS,DOT,memberName,DOT,"hashCode",LRB,RRB,SEMI,ENTER);	
 			break;
 		}
 	
@@ -70,6 +71,10 @@ public class GHashCode extends Section {
 	
 	//生成方法内容的下半部分
 	protected StringBuilder genLowerPart(){
-		return nothing;
+		StringBuilder lowerPart = new StringBuilder();
+		Util.joint(lowerPart,TAB,TAB,RETURN,SPACE,"h",SEMI,ENTER,
+				TAB,RB,ENTER,ENTER);
+		
+		return lowerPart;
 	}
 }

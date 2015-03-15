@@ -11,7 +11,7 @@ public class GenMidPartStrategy implements CharacterAndSymbol {
 	private static final String[] collectionTypes = { MAP, LIST, SET, HASHMAP, ARRAYLIST, HASHSET };
 	
 	//Constructor
-	public static final String[][] CONSTRUCTOR = 	{		
+	public static final String[][] GCONSTRUCTOR = 	{		
 													basicTypes, 
 													{ STRING },
 													{ MAP },
@@ -22,9 +22,11 @@ public class GenMidPartStrategy implements CharacterAndSymbol {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//ConstructorWithParamaeters
-	public static final String[][] CONSTRUCTOR_ARGS = {{ BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN },
-													{ STRING },
-													{}}; 	
+	public static final String[][] GASSIGN =	{
+												{ BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN },
+												{ STRING },
+													{}
+												}; 	
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
@@ -33,23 +35,28 @@ public class GenMidPartStrategy implements CharacterAndSymbol {
 													{STRING},
 													{}}; 
 	//HashCode
-	public static final String[][] strategyFor4 = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
+	public static final String[][] GTOSTRING = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
 													{STRING},
 													{}}; 
 	//Reset
-	public static final String[][] strategyFor5 = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
+	public static final String[][] GRESET = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
 													{STRING},
 													{}}; 
 	//Clone
-	public static final String[][] strategyFor6 = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
+	public static final String[][] GHASHCODE = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
 													{STRING},
 													{}}; 
 	//
-	public static final String[][] strategyFor7 = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
+	public static final String[][] GCONSTRUCTORWITHARGS = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
 													{STRING},
 													{}}; 
 	//
-	public static final String[][] strategyFor8 = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
+	public static final String[][] GEQUALS = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
+													{STRING},
+													{}}; 
+	
+	//
+	public static final String[][] GCLONE = {{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
 													{STRING},
 													{}}; 
 	
