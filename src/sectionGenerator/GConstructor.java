@@ -1,85 +1,98 @@
 package sectionGenerator;
 
-import sectionGenerator.generatorInterface.GenMidPartStrategy;
 import sectionGenerator.generatorInterface.Section;
+import sectionGenerator.generatorInterface.TypeSortStrategy;
 import sectionGenerator.generatorInterface.Util;
 
 public final class GConstructor extends Section {
 	
-	//生成方法标题部分 + 左大括号
+	public GConstructor (){
+		this.typeSortStrategy = TypeSortStrategy.TSS_Constructor;
+	}
+	
+	//方法声明部分
 	@Override
-	protected StringBuilder genDeclarePart(){
+	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
 		
 		Util.joint (declarePart,
-			TAB,PUBLIC,SPACE,beanName,SPACE,LRB,RRB,LB,
-			ENTER);
+			TAB,PUBLIC,SPACE,beanName,SPACE,LRB,RRB);
 		
 		return declarePart;
 	}
 	
-	//生成方法内容的中间部分
+	//方法上半部分
 	@Override
-	protected StringBuilder genMidPart(){
+	protected final StringBuilder genUpperPart(){
 		
-		StringBuilder midPart = new StringBuilder();
+		StringBuilder upperPart = new StringBuilder();
 		
-		for(String memberName: memberNames){
-			
-			String memberType = members.get(memberName);
-						
-			String strType = Util.getStrBeforeLeftAngleBracket(memberType);
-			
-			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.GCONSTRUCTOR);
-
-			genByType(midPart, strategyID, memberName, memberType);
-
-		}
+		Util.joint(upperPart,LRB,ENTER);
 		
-		return midPart;
+		return upperPart;
 	}
 	
-	private void genByType(StringBuilder midPart, int strategyID, String memberName,String memberType){
+	//方法中间部分
+	@Override
+	protected final void genByMembers(StringBuilder midPart, int strategyID, String memberName,String memberType){
 			
-		//根据判断结果生中间部分
-
+		//语句中间部分
 		switch(strategyID){
 
-		case 0 :			
+		// basicTypes
+		case 0 :
 			return;
-			
-		case 1 :
+		
+		// String
+		// this.memberName = "";
+		case 1 : 
 			Util.joint (midPart,TAB,TAB,
 					THIS,DOT,memberName,SPACE,EQUAL,SPACE,QUOTE,QUOTE,SEMI,
 					ENTER);
 			break;
 		
+		// Map
+		// this.memberName = new HashMap();
 		case 2 :			
 			Util.joint (midPart,TAB,TAB,
 					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,HASHMAP,LRB,RRB,SEMI,
 					ENTER);
 			break;	
 			
+		// List
+		// this.memberName = new ArrayList();
 		case 3 :			
 			Util.joint (midPart,TAB,TAB,
 					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,ARRAYLIST,LRB,RRB,SEMI,
 					ENTER);
 			break;
-			
+		
+		// Set
+		// this.memberName = new HashSet();
 		case 4 :			
 			Util.joint (midPart,TAB,TAB,
 					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,HASHSET,LRB,RRB,SEMI,
 					ENTER);
 			break;
 			
+		// OtherTypes
+		// this.memberName = new memberType();
 		case -1 :			
 			Util.joint (midPart,TAB,TAB,
 					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,memberType,LRB,RRB,SEMI,
 					ENTER);
 			break;
 		}
-	
 	}
-
+	
+	//方法下半部分
+	@Override
+	protected final StringBuilder genLowerPart(){
+		StringBuilder lowerPart = new StringBuilder();
+		
+		Util.joint(lowerPart,TAB,RB,ENTER);
+		
+		return lowerPart;
+	}
 }

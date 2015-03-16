@@ -8,6 +8,7 @@ import java.util.List;
 
 import sectionGenerator.*;
 import sectionGenerator.generatorInterface.Section;
+import sectionGenerator.generatorInterface.Sentence;
 import contentGenerator.*;
 
 public class JFCreater implements ContentGenerator{
@@ -29,8 +30,21 @@ public class JFCreater implements ContentGenerator{
 		new GenToString()
 	};
 	
-	public static Section[] s = {
-		new GConstructor()
+	public static Sentence[] s = {
+		new GPackage(),
+		new GImport(),
+		new GClassDeclaration(), 
+		new GMembers(), 
+		new GGetSet(),
+		new GConstructor(),
+		new GConstructorWithArgs(),
+		new GClone(),
+		new GReset(),
+		new GHashCode(),
+		new GAssign(),
+		new GEquals(),
+		new GCompareTo(),
+		new GToString()
 	};
 	
 	

@@ -1,31 +1,39 @@
 package sectionGenerator;
 
 import sectionGenerator.generatorInterface.Section;
+import sectionGenerator.generatorInterface.TypeSortStrategy;
 import sectionGenerator.generatorInterface.Util;
 
 public class GClone extends Section {
-	//生成方法声明部分 + 左大括号
-	protected StringBuilder genDeclarePart(){
+	
+	public GClone(){
+		this.typeSortStrategy = TypeSortStrategy.TSS_Clone;
+	}	
+	
+	//方法声明部分
+	@Override
+	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
-		Util.joint(declarePart, TAB,PUBLIC,SPACE,beanName,SPACE,"clone",LRB,RRB,LB,ENTER);
+		Util.joint(declarePart, TAB,PUBLIC,SPACE,beanName,SPACE,"clone",LRB,RRB);
 		
 		return declarePart;
 	}
 	
-	//生成方法内容的上半部分
-	protected StringBuilder genUpperPart(){
+	//方法上半部分
+	@Override
+	protected final StringBuilder genUpperPart(){
 		
 		StringBuilder upperPart = new  StringBuilder();
-		Util.joint(upperPart,TAB,TAB,RETURN,SPACE,"new",SPACE,beanName,LRB);
+		Util.joint(upperPart,LB,ENTER,TAB,TAB,RETURN,SPACE,"new",SPACE,beanName,LRB);
 		
 		
 		return upperPart;
-	}
+	}	
 	
-	//生成方法内容的中间部分
+	//方法中间部分
 	@Override
-	protected StringBuilder genMidPart(){
+	protected final StringBuilder genMidPart(){
 		
 		StringBuilder midPart = new StringBuilder();
 		String strComma = nothing.toString();
@@ -40,11 +48,12 @@ public class GClone extends Section {
 		
 		return midPart;
 	}
-	
-	//生成方法内容的下半部分
-	protected StringBuilder genLowerPart(){
+		
+	//方法下半部分
+	@Override
+	protected final StringBuilder genLowerPart(){
 		StringBuilder lowerPart =  new StringBuilder();
-		Util.joint(lowerPart, RRB,SEMI,ENTER,TAB,RB,ENTER,ENTER);
+		Util.joint(lowerPart, RRB,SEMI,ENTER);
 		
 		return lowerPart;
 	}

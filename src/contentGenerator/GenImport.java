@@ -3,7 +3,6 @@ package contentGenerator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import tool.XMLBean;
 
 public class GenImport implements ContentGenerator{
@@ -13,7 +12,7 @@ public class GenImport implements ContentGenerator{
 		Map<String,String> members = xb.getMembers();
 		Set<String> memberTypes = new HashSet<String>();		
 		Set<String> memberNames = members.keySet();		
-		for(String memberName: memberNames) memberTypes.add(members.get(memberName));		 
+		for(String memberName: memberNames) memberTypes.add(members.get(memberName));	 
 
 		Set<String> strImports = new HashSet<String>();
 		

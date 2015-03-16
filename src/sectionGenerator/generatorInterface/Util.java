@@ -1,17 +1,16 @@
 package sectionGenerator.generatorInterface;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
 
 public class Util implements CharacterAndSymbol{
 	
 	//字符串连接
-	public static StringBuilder joint (StringBuilder sb, CharSequence... args){
+	public static final StringBuilder joint (StringBuilder sb, CharSequence... args){
 		
 		for(CharSequence arg : args){
 			
@@ -22,7 +21,7 @@ public class Util implements CharacterAndSymbol{
 	}
 	
 	//截取尖括号左边的字符
-	public static String getStrBeforeLeftAngleBracket (String memberType){
+	public static final String getStrBeforeLeftAngleBracket (String memberType){
 		
 		String strType = memberType;
 		
@@ -31,7 +30,23 @@ public class Util implements CharacterAndSymbol{
 		return strType;		
 	}
 	
-	public static <T extends Comparable<T>> int compareTo(Collection<T> a, Collection<T> b){
+	public static final int getStrategyID(String strType,String[][] strategy){
+		
+		if(null == strategy) return -1;
+		
+		for(int i = 0, len = strategy.length; i < len; i++){
+			
+			List<String> strCompare = Arrays.asList(strategy[i]);
+			
+			for(String str : strCompare){
+				if(str.equals(strType)) return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	public static final <T extends Comparable<T>> int compareTo(Collection<T> a, Collection<T> b){
 		int c = a.size() - b.size();
 		if(c != 0) return c;
 		Iterator<T> ia = a.iterator();
@@ -44,7 +59,7 @@ public class Util implements CharacterAndSymbol{
 		return 0;
 	}
 	
-	public static <K extends Comparable<K>, V extends Comparable<V>> int compareTo(Map<K, V> a, Map<K, V> b)
+	public static final <K extends Comparable<K>, V extends Comparable<V>> int compareTo(Map<K, V> a, Map<K, V> b)
 	{
 		int c = a.size() - b.size();
 		if(c != 0) return c;
@@ -62,7 +77,7 @@ public class Util implements CharacterAndSymbol{
 		return 0;
 	}
 	
-	public static StringBuilder append(StringBuilder s, Collection<?> c)
+	public static final StringBuilder append(StringBuilder s, Collection<?> c)
 	{
 		if(c.isEmpty()) return s.append(BS).append(COMMA);
 		
@@ -76,7 +91,7 @@ public class Util implements CharacterAndSymbol{
 		return s;
 	}
 	
-	public static StringBuilder append(StringBuilder s, Map<?, ?> m)
+	public static final StringBuilder append(StringBuilder s, Map<?, ?> m)
 	{
 		if(m.isEmpty()) return s.append(BS).append(COMMA);
 		
@@ -88,6 +103,5 @@ public class Util implements CharacterAndSymbol{
 		s.append(RB).append(COMMA);
 		
 		return s;
-	}
-	
+	}	
 }

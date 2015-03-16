@@ -1,13 +1,13 @@
 package sectionGenerator.generatorInterface;
 
 public interface CharacterAndSymbol {
-	
+
 	public static final StringBuilder nothing = new StringBuilder();
 	
 	public static final String PRIVATE = "private";
 	public static final String PUBLIC = "public";
 	public static final String NEW = "new";
-	public static final String IF = "if";			
+	public static final String IF = "if";
 	public static final String BYTE = "byte";
 	public static final String SHORT = "short";
 	public static final String INT = "int";
@@ -64,4 +64,6 @@ public interface CharacterAndSymbol {
 	public static final String LB = "{"; // left brace
 	public static final String RB = "}"; // right brace
 	public static final String BS = "{}"; // braces
+	
+	public static final StringBuilder StrImportCollection = Util.joint(new StringBuilder(), "import",SPACE,"java",DOT,"util",DOT);
 }

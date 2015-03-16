@@ -1,24 +1,31 @@
 package sectionGenerator;
 
-import sectionGenerator.generatorInterface.GenMidPartStrategy;
 import sectionGenerator.generatorInterface.Section;
+import sectionGenerator.generatorInterface.TypeSortStrategy;
 import sectionGenerator.generatorInterface.Util;
 
 public class GEquals extends Section {
-	//生成方法声明部分 + 左大括号
-	protected StringBuilder genDeclarePart(){
+	
+	public GEquals(){
+		this.typeSortStrategy = TypeSortStrategy.TSS_Equals;
+	}
+		
+	//方法声明部分
+	@Override
+	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
-		Util.joint(declarePart, TAB,PUBLIC,SPACE,"boolean",SPACE,"equals","Object",SPACE,"o",RRB,LB,ENTER);
+		Util.joint(declarePart, TAB,PUBLIC,SPACE,"boolean",SPACE,"equals","Object",SPACE,"o",RRB);
 		
 		return declarePart;
 	}
 	
-	//生成方法内容的上半部分
-	protected StringBuilder genUpperPart(){
+	//方法上半部分
+	@Override
+	protected final StringBuilder genUpperPart(){
 		
 		StringBuilder upperPart = new StringBuilder();
-		Util.joint(upperPart, TAB,TAB,IF,LRB,"o",SPACE,EQUAL,EQUAL,SPACE,THIS,RRB,
+		Util.joint(upperPart,LB,ENTER,TAB,TAB,IF,LRB,"o",SPACE,EQUAL,EQUAL,SPACE,THIS,RRB,
 				SPACE,RETURN,SPACE,"true",SEMI,ENTER,
 				TAB,TAB,
 				IF,LRB,EXCLA,LRB,"o",SPACE,"instanceof",SPACE,beanName,RRB,RRB,
@@ -29,31 +36,11 @@ public class GEquals extends Section {
 		return upperPart;
 	}
 	
-	//生成方法内容的中间部分
+	//方法中间部分
 	@Override
-	protected StringBuilder genMidPart(){
-		
-		StringBuilder midPart = new StringBuilder();
-		
-		for(String memberName: memberNames){
+	protected final void genByMembers(StringBuilder midPart, int strategyID, String memberName,String memberType){
 			
-			String memberType = members.get(memberName);
-						
-			String strType = Util.getStrBeforeLeftAngleBracket(memberType);
-			
-			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.GEQUALS);
-
-			genByType(midPart, strategyID, memberName, memberType);
-
-		}
-		
-		return midPart;
-	}
-	
-	private void genByType(StringBuilder midPart, int strategyID, String memberName,String memberType){
-			
-		//根据判断结果生中间部分
-
+		//语句中间部分
 		switch(strategyID){
 
 		case 0 :	
@@ -69,6 +56,16 @@ public class GEquals extends Section {
 			break;
 		}
 	
+	}
+	
+	//方法下半部分
+	@Override
+	protected final StringBuilder genLowerPart(){
+		
+		StringBuilder lowerPart = new StringBuilder();
+		Util.joint(lowerPart,TAB,RB,ENTER);
+		
+		return lowerPart;
 	}
 
 }

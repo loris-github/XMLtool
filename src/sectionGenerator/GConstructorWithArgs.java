@@ -1,12 +1,18 @@
 package sectionGenerator;
 
-import sectionGenerator.generatorInterface.GenMidPartStrategy;
 import sectionGenerator.generatorInterface.Section;
+import sectionGenerator.generatorInterface.TypeSortStrategy;
 import sectionGenerator.generatorInterface.Util;
 
 public class GConstructorWithArgs extends Section {
-	//生成方法声明部分 + 左大括号
-	protected StringBuilder genDeclarePart(){
+	
+	public GConstructorWithArgs(){
+		this.typeSortStrategy = TypeSortStrategy.TSS_ConstructorWithArgs;
+	}
+	
+	//方法声明部分
+	@Override
+	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
 		Util.joint(declarePart, TAB,PUBLIC,SPACE,beanName,SPACE,LRB);
@@ -21,90 +27,89 @@ public class GConstructorWithArgs extends Section {
 			strComma = COMMA;
 		}
 		
-		Util.joint(declarePart,RRB,LB,ENTER);
+		Util.joint(declarePart,RRB);
 		
 		return declarePart;
 	}
 	
-	//生成方法内容的上半部分
-	protected StringBuilder genUpperPart(){
-		return nothing;
-	}
-	
-	//生成方法内容的中间部分
+	//方法上半部分
 	@Override
-	protected StringBuilder genMidPart(){
+	protected final StringBuilder genUpperPart(){
 		
-		StringBuilder midPart = new StringBuilder();
+		StringBuilder upperPart = new StringBuilder();
+		Util.joint(upperPart,LB,ENTER);
 		
-		for(String memberName: memberNames){
-			
-			String memberType = members.get(memberName);
-						
-			String strType = Util.getStrBeforeLeftAngleBracket(memberType);
-			
-			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.GCONSTRUCTORWITHARGS);
-
-			genByType(midPart, strategyID, memberName, memberType);
-
-		}
-		
-		return midPart;
+		return upperPart;
 	}
 	
-	private void genByType(StringBuilder midPart, int strategyID, String memberName,String memberType){
+	//方法中间部分
+	@Override
+	protected final void genByMembers(StringBuilder midPart, int strategyID, String memberName,String memberType){
 			
-		//根据判断结果生中间部分
+		//语句生中间部分
 
 		switch(strategyID){
-
+		
+		// basicTypes
+		// this.memberName = memberName;
 		case 0 :
 			Util.joint(midPart,TAB,TAB,
 					THIS,DOT,memberName,SPACE,EQUAL,SPACE,memberName,SEMI,ENTER);
 			
 			break;
 			
+		// String
+		// this.memberName = (memberName != null ? memberName : "");
 		case 1 :
 			Util.joint(midPart,TAB,TAB,
 					THIS,DOT,memberName,SPACE,EQUAL,SPACE,LRB,memberName,SPACE,EXCLA,EQUAL,
-					SPACE,NULL,SPACE,QUSET,SPACE,memberName,SPACE,COLON,SPACE,QUOTE,QUOTE,SEMI,ENTER);
+					SPACE,NULL,SPACE,QUSET,SPACE,memberName,SPACE,COLON,SPACE,QUOTE,QUOTE,RRB,SEMI,ENTER);
 			break;
 		
-		case 2 :			//map
+		// Map, HashMap
+		// this.memberName = new HashMap(); if(null != memberName) this.memberName.putAll(memberName);
+		case 2 :
 			Util.joint(midPart,TAB,TAB,
-					THIS,DOT,memberName,SPACE,EQUAL,SPACE,"new",SPACE,HASHMAP,LRB,RRB,SEMI,
+					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,HASHMAP,LRB,RRB,SEMI,
 					SPACE,IF,LRB,NULL,SPACE,EXCLA,EQUAL,SPACE,memberName,RRB,SPACE,THIS,DOT,memberName,DOT,PUTALL,
 					LRB,memberName,RRB,SEMI,ENTER);
-			break;	
+			break;
 			
-		case 3 :			//list
+		// List, ArrayList
+		// this.memberName = new ArrayList(); if(null != memberName) this.memberName.addAll(memberName);
+		case 3 :
 			Util.joint(midPart,TAB,TAB,
-					THIS,DOT,memberName,SPACE,EQUAL,SPACE,"new",SPACE,ARRAYLIST,LRB,RRB,SEMI,
+					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,ARRAYLIST,LRB,RRB,SEMI,
 					SPACE,IF,LRB,NULL,SPACE,EXCLA,EQUAL,SPACE,memberName,RRB,SPACE,THIS,DOT,memberName,DOT,ADDALL,
 					LRB,memberName,RRB,SEMI,ENTER);
 			break;
 			
-		case 4 :			//set
+		// Set, HashSet
+		// this.memberName = new HashSet(); if(null != memberName) this.memberName.addAll(memberName);
+		case 4 :
 			Util.joint(midPart,TAB,TAB,
-					THIS,DOT,memberName,SPACE,EQUAL,SPACE,"new",SPACE,HASHSET,LRB,RRB,SEMI,
+					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,HASHSET,LRB,RRB,SEMI,
 					SPACE,IF,LRB,NULL,SPACE,EXCLA,EQUAL,SPACE,memberName,RRB,SPACE,THIS,DOT,memberName,DOT,ADDALL,
 					LRB,memberName,RRB,SEMI,ENTER);
 			break;
-			
+		
+		// OtherTypes
+		// this.memberName = (null != memberName ? memberType.clone() : new memberType());
 		case -1 :			
 			Util.joint(midPart,TAB,TAB,
 					THIS,DOT,memberName,SPACE,EQUAL,SPACE,LRB,
-					memberName,SPACE,EXCLA,EQUAL,SPACE,NULL,SPACE,QUSET,SPACE,memberType,DOT,"clone",LRB,RRB,
-					SPACE,COLON,SPACE,"new",SPACE,memberType,LRB,RRB,RRB,SEMI,ENTER);
+					NULL,SPACE,EXCLA,EQUAL,SPACE,memberName,SPACE,QUSET,SPACE,memberType,DOT,"clone",LRB,RRB,
+					SPACE,COLON,SPACE,NEW,SPACE,memberType,LRB,RRB,RRB,SEMI,ENTER);
 			break;
-		}
-	
+		}	
 	}
 	
-	//生成方法内容的下半部分
-	protected StringBuilder genLowerPart(){
+	//方法下半部分
+	@Override
+	protected final StringBuilder genLowerPart(){
+		
 		StringBuilder lowerPart = new StringBuilder();
-		Util.joint(lowerPart, TAB,RB,ENTER,ENTER);
+		Util.joint(lowerPart,TAB,RB,ENTER);
 		
 		return lowerPart;
 	}

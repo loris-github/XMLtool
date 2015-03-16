@@ -1,54 +1,42 @@
 package sectionGenerator;
 
-import sectionGenerator.generatorInterface.GenMidPartStrategy;
 import sectionGenerator.generatorInterface.Section;
+import sectionGenerator.generatorInterface.TypeSortStrategy;
 import sectionGenerator.generatorInterface.Util;
 
 public class GHashCode extends Section {
-	//生成方法声明部分 + 左大括号
-	protected StringBuilder genDeclarePart(){
+	
+	public GHashCode(){
+		this.typeSortStrategy = TypeSortStrategy.TSS_HashCode;
+	}
+	
+	//方法声明部分
+	@Override
+	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
-		Util.joint(declarePart, TAB,PUBLIC,SPACE,"int",SPACE,"hashCode",LRB,RRB,SPACE,LB,ENTER);
+		Util.joint(declarePart, TAB,PUBLIC,SPACE,"int",SPACE,"hashCode",LRB,RRB);
 		
 		return declarePart;
 	}
 	
-	//生成方法内容的上半部分
-	protected StringBuilder genUpperPart(){
+	//方法上半部分
+	@Override
+	protected final StringBuilder genUpperPart(){
 		
 		StringBuilder upperPart = new StringBuilder();
 		
-		Util.joint(upperPart,TAB,TAB,
+		Util.joint(upperPart,LB,ENTER,TAB,TAB,
 				"int",SPACE,"h",SPACE,EQUAL,SPACE,LRB,"int",RRB,"serialVersionUID",SEMI,ENTER);
 		
 		return upperPart;
 	}
-	
-	//生成方法内容的中间部分
+
+	//方法中间部分
 	@Override
-	protected StringBuilder genMidPart(){
-		
-		StringBuilder midPart = new StringBuilder();
-		
-		for(String memberName: memberNames){
+	protected final void genByMembers(StringBuilder midPart, int strategyID, String memberName,String memberType){
 			
-			String memberType = members.get(memberName);
-						
-			String strType = Util.getStrBeforeLeftAngleBracket(memberType);
-			
-			int strategyID = GenMidPartStrategy.getStrategyID (strType, GenMidPartStrategy.GHASHCODE);
-
-			genByType(midPart, strategyID, memberName, memberType);
-
-		}
-		
-		return midPart;
-	}
-	
-	private void genByType(StringBuilder midPart, int strategyID, String memberName,String memberType){
-			
-		//根据判断结果生中间部分
+		//语句中间部分
 
 		switch(strategyID){
 
@@ -65,15 +53,15 @@ public class GHashCode extends Section {
 					"h",SPACE,ASTERISK,SPACE,"31",SPACE,"+",SPACE,"1",SPACE,
 					"+",SPACE,THIS,DOT,memberName,DOT,"hashCode",LRB,RRB,SEMI,ENTER);	
 			break;
-		}
-	
+		}	
 	}	
 	
-	//生成方法内容的下半部分
-	protected StringBuilder genLowerPart(){
+	//方法下半部分
+	@Override
+	protected final StringBuilder genLowerPart(){
+		
 		StringBuilder lowerPart = new StringBuilder();
-		Util.joint(lowerPart,TAB,TAB,RETURN,SPACE,"h",SEMI,ENTER,
-				TAB,RB,ENTER,ENTER);
+		Util.joint(lowerPart,TAB,TAB,RETURN,SPACE,"h",SEMI,ENTER,TAB,RB,ENTER);
 		
 		return lowerPart;
 	}
