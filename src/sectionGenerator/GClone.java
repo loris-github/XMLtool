@@ -10,7 +10,7 @@ public class GClone extends Section {
 	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
-		Util.joint(declarePart, TAB,PUBLIC,SPACE,beanName,SPACE,"clone",LRB,RRB);
+		Util.joint(declarePart, TAB,_public,SPACE,beanName,SPACE,_clone,LRB,RRB);
 		
 		return declarePart;
 	}
@@ -20,7 +20,7 @@ public class GClone extends Section {
 	protected final StringBuilder genUpperPart(){
 		
 		StringBuilder upperPart = new  StringBuilder();
-		Util.joint(upperPart,LB,ENTER,TAB,TAB,RETURN,SPACE,NEW,SPACE,beanName,LRB);
+		Util.joint(upperPart,LB,ENTER,ENTER,TAB,TAB,_return,SPACE,_new,SPACE,beanName,LRB);
 		
 		
 		return upperPart;
@@ -48,7 +48,7 @@ public class GClone extends Section {
 	@Override
 	protected final StringBuilder genLowerPart(){
 		StringBuilder lowerPart =  new StringBuilder();
-		Util.joint(lowerPart, RRB,SEMI,ENTER,TAB,RB,ENTER);
+		Util.joint(lowerPart, RRB,SEMI,ENTER,TAB,RB,ENTER,ENTER);
 		
 		return lowerPart;
 	}

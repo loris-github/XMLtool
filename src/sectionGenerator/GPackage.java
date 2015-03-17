@@ -11,6 +11,6 @@ public class GPackage extends Sentence{
 		
 		String path = xb.getPath();
 		
-		Util.joint(content, "package",SPACE,path,SEMI,ENTER,ENTER);		
+		Util.joint(content,_package,SPACE,path,SEMI,ENTER,ENTER);
 	}
 }

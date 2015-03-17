@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BHeroAttribute implements Comparable<BHeroAttribute>, java.io.Serializable {
+public class BHeroAttribute implements Comparable<BHeroAttribute>,Cloneable,java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -65,11 +65,14 @@ public class BHeroAttribute implements Comparable<BHeroAttribute>, java.io.Seria
 	}
 
 	public BHeroAttribute (){
+
 		this.name = "";
 		this.equips = new HashMap();
 		this.poses = new ArrayList();
 	}
+
 	public BHeroAttribute (int level,String name,int heroid,Map<Integer,Integer> equips,int exp,List<BHeroPosition> poses){
+
 		this.level = level;
 		this.name = (name != null ? name : "");
 		this.heroid = heroid;
@@ -77,10 +80,14 @@ public class BHeroAttribute implements Comparable<BHeroAttribute>, java.io.Seria
 		this.exp = exp;
 		this.poses = new ArrayList(); if(null != poses) this.poses.addAll(poses);
 	}
+
 	public BHeroAttribute clone(){
+
 		return new BHeroAttribute(level,name,heroid,equips,exp,poses);
 	}
+
 	public void reset(){
+
 		level = 0;
 		name = "";
 		heroid = 0;
@@ -88,8 +95,11 @@ public class BHeroAttribute implements Comparable<BHeroAttribute>, java.io.Seria
 		exp = 0;
 		this.poses.clear();
 	}
+
 	public int hashCode(){
+
 		int h = (int)serialVersionUID;
+
 		h = h * 31 + 1 + (int)this.level;
 		h = h * 31 + 1 + this.name.hashCode();
 		h = h * 31 + 1 + (int)this.heroid;
@@ -98,9 +108,12 @@ public class BHeroAttribute implements Comparable<BHeroAttribute>, java.io.Seria
 		h = h * 31 + 1 + this.poses.hashCode();
 		return h;
 	}
+
 	public void assign(BHeroAttribute a){
+
 		if(a == this) return;
 		if(a == null) {reset(); return;}
+
 		this.level = a.level;
 		this.name = (null != a.name ? a.name : "");;
 		this.heroid = a.heroid;
@@ -108,36 +121,51 @@ public class BHeroAttribute implements Comparable<BHeroAttribute>, java.io.Seria
 		this.exp = a.exp;
 		this.poses.clear(); if(null != a.poses) this.poses.addAll(a.poses);
 	}
+
 	public boolean equals(Object o){
+
 		if(o == this) return true;
 		if(!(o instanceof BHeroAttribute)) return false;
 		BHeroAttribute e = (BHeroAttribute)o;
+
 		if(this.level != e.level) return false;
 		if(!this.name.equals(e.name)) return false;
 		if(this.heroid != e.heroid) return false;
 		if(!this.equips.equals(e.equips)) return false;
 		if(this.exp != e.exp) return false;
 		if(!this.poses.equals(e.poses)) return false;
+
 		return true;
 	}
 
 	public int compareTo(BHeroAttribute c){
-		if(c == this) return 0;		if(c == null) return 1;		int i;		i = this.level - c.level; if(i!= 0) return i;
+
+		if(c == this) return 0;
+		if(c == null) return 1;
+		int i;
+
+		i = this.level - c.level; if(i!= 0) return i;
 		i = this.name.compareTo(c.name); if(i!= 0) return i;
 		i = this.heroid - c.heroid; if(i!= 0) return i;
 		i = sectionGenerator.generatorInterface.Util.compareTo(this.equips,c.equips); if(i!= 0) return i;
 		i = this.exp - c.exp; if(i!= 0) return i;
 		i = sectionGenerator.generatorInterface.Util.compareTo(this.poses,c.poses); if(i!= 0) return i;
+
 		return 0;
 	}
+
 	public String toString(){
-		StringBuffer s = new StringBuffer();
+
+		StringBuilder s = new StringBuilder();
+
 		s.append(this.level).append(",");
 		s.append(this.name).append(",");
 		s.append(this.heroid).append(",");
 		sectionGenerator.generatorInterface.Util.append(s, this.equips);
 		s.append(this.exp).append(",");
 		sectionGenerator.generatorInterface.Util.append(s, this.poses);
+
 		return s.append("}").toString();
 	}
+
 }

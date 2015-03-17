@@ -14,11 +14,11 @@ public class GClassDeclaration extends Sentence{
 		String className = Character.toUpperCase(beanName.charAt(0))
 			      + beanName.substring(1);
 		
-		Util.joint(content, PUBLIC,SPACE,"class",SPACE,className,SPACE,
-				"implements",SPACE,"Comparable",LAB,beanName,RAB,COMMA,SPACE,
-				"java",DOT,"io",DOT,"Serializable",SPACE,LB,ENTER,ENTER,
-				TAB,PRIVATE,SPACE,"static",SPACE,"final",SPACE,"long",SPACE,
-				"serialVersionUID",SPACE,EQUAL,SPACE,"1L",SEMI,ENTER,ENTER);		
+		Util.joint(content, _public,SPACE,_class,SPACE,className,SPACE,
+				_implements,SPACE,_Comparable,LAB,beanName,RAB,COMMA,_Cloneable,COMMA,
+				_Serializable,SPACE,LB,ENTER,ENTER,
+				TAB,_private,SPACE,_static,SPACE,_final,SPACE,_long,SPACE,
+				_serialVersionUID,SPACE,EQUAL,SPACE,_1L,SEMI,ENTER,ENTER);		
 	}
 
 }

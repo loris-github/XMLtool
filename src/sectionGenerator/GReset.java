@@ -15,7 +15,7 @@ public class GReset extends Section {
 	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
-		Util.joint(declarePart, TAB,PUBLIC,SPACE,"void",SPACE,"reset",LRB,RRB);
+		Util.joint(declarePart, TAB,_public,SPACE,_void,SPACE,_reset,LRB,RRB);
 		
 		return declarePart;
 	}
@@ -26,7 +26,7 @@ public class GReset extends Section {
 		
 		StringBuilder upperPart = new StringBuilder();
 		
-		Util.joint(upperPart,LB,ENTER);
+		Util.joint(upperPart,LB,ENTER,ENTER);
 		
 		return upperPart;
 	}
@@ -41,13 +41,13 @@ public class GReset extends Section {
 		// byte, short, int, long, float, double, char
 		// memberName = "0";
 		case 0 :
-			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,"0",SEMI,ENTER);			
+			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,_0,SEMI,ENTER);			
 			break;
 		
 		// boolean
 		// memberName = false;	
 		case 1 :
-			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,"false",SEMI,ENTER);
+			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,_false,SEMI,ENTER);
 			break;	
 			
 		// String
@@ -59,13 +59,13 @@ public class GReset extends Section {
 		// 	Map, List, Set, HashMap, ArrayList, HashSet
 		// this.memberName.clear();	
 		case 3 :			
-			Util.joint(midPart,TAB,TAB,THIS,DOT,memberName,DOT,"clear",LRB,RRB,SEMI,ENTER);
+			Util.joint(midPart,TAB,TAB,_this,DOT,memberName,DOT,_clear,LRB,RRB,SEMI,ENTER);
 			break;	
 		
 		// OtherTypes
 		// this.memberName = null;	
 		case -1 :			
-			Util.joint(midPart,TAB,TAB,THIS,DOT,memberName,SPACE,EQUAL,SPACE,NULL,SEMI,ENTER);
+			Util.joint(midPart,TAB,TAB,_this,DOT,memberName,SPACE,EQUAL,SPACE,_null,SEMI,ENTER);
 			break;
 		}	
 	}
@@ -75,7 +75,7 @@ public class GReset extends Section {
 	protected final StringBuilder genLowerPart(){
 		StringBuilder lowerPart = new StringBuilder();
 		
-		Util.joint(lowerPart,TAB,RB,ENTER);
+		Util.joint(lowerPart,TAB,RB,ENTER,ENTER);
 		
 		return lowerPart;
 	}

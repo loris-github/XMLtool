@@ -17,7 +17,7 @@ public final class GConstructor extends Section {
 		StringBuilder declarePart = new StringBuilder();
 		
 		Util.joint (declarePart,
-			TAB,PUBLIC,SPACE,beanName,SPACE,LRB,RRB);
+			TAB,_public,SPACE,beanName,SPACE,LRB,RRB);
 		
 		return declarePart;
 	}
@@ -28,7 +28,7 @@ public final class GConstructor extends Section {
 		
 		StringBuilder upperPart = new StringBuilder();
 		
-		Util.joint(upperPart,LB,ENTER);
+		Util.joint(upperPart,LB,ENTER,ENTER);
 		
 		return upperPart;
 	}
@@ -48,7 +48,7 @@ public final class GConstructor extends Section {
 		// this.memberName = "";
 		case 1 : 
 			Util.joint (midPart,TAB,TAB,
-					THIS,DOT,memberName,SPACE,EQUAL,SPACE,QUOTE,QUOTE,SEMI,
+					_this,DOT,memberName,SPACE,EQUAL,SPACE,QUOTE,QUOTE,SEMI,
 					ENTER);
 			break;
 		
@@ -56,7 +56,7 @@ public final class GConstructor extends Section {
 		// this.memberName = new HashMap();
 		case 2 :			
 			Util.joint (midPart,TAB,TAB,
-					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,HASHMAP,LRB,RRB,SEMI,
+					_this,DOT,memberName,SPACE,EQUAL,SPACE,_new,SPACE,_HashMap,LRB,RRB,SEMI,
 					ENTER);
 			break;	
 			
@@ -64,7 +64,7 @@ public final class GConstructor extends Section {
 		// this.memberName = new ArrayList();
 		case 3 :			
 			Util.joint (midPart,TAB,TAB,
-					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,ARRAYLIST,LRB,RRB,SEMI,
+					_this,DOT,memberName,SPACE,EQUAL,SPACE,_new,SPACE,_ArrayList,LRB,RRB,SEMI,
 					ENTER);
 			break;
 		
@@ -72,7 +72,7 @@ public final class GConstructor extends Section {
 		// this.memberName = new HashSet();
 		case 4 :			
 			Util.joint (midPart,TAB,TAB,
-					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,HASHSET,LRB,RRB,SEMI,
+					_this,DOT,memberName,SPACE,EQUAL,SPACE,_new,SPACE,_HashSet,LRB,RRB,SEMI,
 					ENTER);
 			break;
 			
@@ -80,7 +80,7 @@ public final class GConstructor extends Section {
 		// this.memberName = new memberType();
 		case -1 :			
 			Util.joint (midPart,TAB,TAB,
-					THIS,DOT,memberName,SPACE,EQUAL,SPACE,NEW,SPACE,memberType,LRB,RRB,SEMI,
+					_this,DOT,memberName,SPACE,EQUAL,SPACE,_new,SPACE,memberType,LRB,RRB,SEMI,
 					ENTER);
 			break;
 		}
@@ -91,7 +91,7 @@ public final class GConstructor extends Section {
 	protected final StringBuilder genLowerPart(){
 		StringBuilder lowerPart = new StringBuilder();
 		
-		Util.joint(lowerPart,TAB,RB,ENTER);
+		Util.joint(lowerPart,TAB,RB,ENTER,ENTER);
 		
 		return lowerPart;
 	}

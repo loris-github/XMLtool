@@ -16,7 +16,7 @@ public class GAssign extends Section {
 		
 		StringBuilder declarePart= new StringBuilder();
 		
-		Util.joint(declarePart, TAB,PUBLIC,SPACE,"void",SPACE,"assign",LRB,beanName,SPACE,"a",RRB);
+		Util.joint(declarePart,TAB,_public,SPACE,_void,SPACE,_assign,LRB,beanName,SPACE,_a,RRB);
 		
 		return declarePart;
 	}
@@ -27,10 +27,10 @@ public class GAssign extends Section {
 		
 		StringBuilder upperPart= new StringBuilder();
 		
-		Util.joint(upperPart,LB,ENTER,TAB,TAB,
-				IF,LRB,"a",SPACE,EQUAL,EQUAL,SPACE,THIS,RRB,SPACE,RETURN,SEMI,ENTER,
+		Util.joint(upperPart,LB,ENTER,ENTER,TAB,TAB,
+				_if,LRB,_a,SPACE,EQUAL,EQUAL,SPACE,_this,RRB,SPACE,_return,SEMI,ENTER,
 				TAB,TAB,
-				IF,LRB,"a",SPACE,EQUAL,EQUAL,SPACE,NULL,RRB,SPACE,LB,"reset",LRB,RRB,SEMI,SPACE,RETURN,SEMI,RB,ENTER);
+				_if,LRB,_a,SPACE,EQUAL,EQUAL,SPACE,_null,RRB,SPACE,LB,_reset,LRB,RRB,SEMI,SPACE,_return,SEMI,RB,ENTER,ENTER);
 		
 		return upperPart;
 	}
@@ -40,7 +40,7 @@ public class GAssign extends Section {
 	protected final void genByMembers(StringBuilder midPart, int strategyID, String memberName,String memberType){
 		
 		//语句前半部分
-		Util.joint(midPart,TAB,TAB,THIS,DOT,memberName);
+		Util.joint(midPart,TAB,TAB,_this,DOT,memberName);
 		
 		//语句中间部分		
 		switch(strategyID){
@@ -55,31 +55,31 @@ public class GAssign extends Section {
 		// String
 		// this.memberName = (null != a.memberName ? a.memberName : "");
 		case 1 :			
-			Util.joint(midPart,SPACE,EQUAL,SPACE,LRB,NULL,SPACE,
-					EXCLA,EQUAL,SPACE,"a",DOT,memberName,SPACE,QUSET,SPACE,"a",DOT,memberName,
+			Util.joint(midPart,SPACE,EQUAL,SPACE,LRB,_null,SPACE,
+					EXCLA,EQUAL,SPACE,_a,DOT,memberName,SPACE,QUSET,SPACE,_a,DOT,memberName,
 					SPACE,COLON,SPACE,QUOTE,QUOTE,RRB,SEMI);
 			break;
 		
 		// Map, HashMap
 		// this.memberName.clear(); if(null != a.memberName) this.memberName.putAll(a.memberName);
 		case 2 :					
-			Util.joint(midPart,DOT,"clear",LRB,RRB,SEMI,SPACE,IF,LRB,NULL,SPACE,
-					EXCLA,EQUAL,SPACE,"a",DOT,memberName,RRB,SPACE,THIS,DOT,memberName,DOT,"putAll",LRB,"a",DOT,
+			Util.joint(midPart,DOT,_clear,LRB,RRB,SEMI,SPACE,_if,LRB,_null,SPACE,
+					EXCLA,EQUAL,SPACE,_a,DOT,memberName,RRB,SPACE,_this,DOT,memberName,DOT,_putAll,LRB,_a,DOT,
 					memberName,RRB);			
 			break;	
 		
 		// List, ArrayList, Set, HashSet
 		// this.memberName.clear(); if(null != a.memberName) this.memberName.addAll(a.memberName);
 		case 3 :			
-			Util.joint(midPart,DOT,"clear",LRB,RRB,SEMI,SPACE,IF,LRB,NULL,SPACE,
-					EXCLA,EQUAL,SPACE,"a",DOT,memberName,RRB,SPACE,THIS,DOT,memberName,DOT,"addAll",LRB,"a",DOT,
+			Util.joint(midPart,DOT,_clear,LRB,RRB,SEMI,SPACE,_if,LRB,_null,SPACE,
+					EXCLA,EQUAL,SPACE,_a,DOT,memberName,RRB,SPACE,_this,DOT,memberName,DOT,_addAll,LRB,_a,DOT,
 					memberName,RRB);
 			break;
 		
 		// OtherTypes	
 		// this.memberName.assign(a.memberName);	
 		case -1 :		
-			Util.joint(midPart,DOT,"assign",LRB,"a",DOT,memberName,RRB);			
+			Util.joint(midPart,DOT,_assign,LRB,_a,DOT,memberName,RRB);			
 			break;			
 		}
 		
@@ -92,7 +92,7 @@ public class GAssign extends Section {
 	protected final StringBuilder genLowerPart(){
 		StringBuilder lowerPart = new StringBuilder();
 		
-		Util.joint(lowerPart,TAB,RB,ENTER);
+		Util.joint(lowerPart,TAB,RB,ENTER,ENTER);
 		
 		return lowerPart;
 	}

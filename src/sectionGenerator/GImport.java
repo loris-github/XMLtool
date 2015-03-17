@@ -56,42 +56,42 @@ public class GImport extends Section {
 		switch(strategyID){
 
 		case 0 :
-			strImports.add(new StringBuilder(StrImportCollection).append(MAP).append(SEMI).toString());
-			strImports.add(new StringBuilder(StrImportCollection).append(HASHMAP).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_Map).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_HashMap).append(SEMI).toString());
 			break;
 
 		case 1 :
-			strImports.add(new StringBuilder(StrImportCollection).append(LIST).append(SEMI).toString());
-			strImports.add(new StringBuilder(StrImportCollection).append(ARRAYLIST).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_List).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_ArrayList).append(SEMI).toString());
 			break;
 
 		case 2 :
-			strImports.add(new StringBuilder(StrImportCollection).append(SET).append(SEMI).toString());
-			strImports.add(new StringBuilder(StrImportCollection).append(HASHSET).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_Set).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_HashSet).append(SEMI).toString());
 			break;
 
 		case 3 :
-			strImports.add(new StringBuilder(StrImportCollection).append(MAP).append(SEMI).toString());		
+			strImports.add(new StringBuilder(StrImportCollection).append(_Map).append(SEMI).toString());		
 			break;
 
 		case 4 :
-			strImports.add(new StringBuilder(StrImportCollection).append(LIST).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_List).append(SEMI).toString());
 			break;
 
 		case 5 :
-			strImports.add(new StringBuilder(StrImportCollection).append(SET).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_Set).append(SEMI).toString());
 			break;
 			
 		case 6 :
-			strImports.add(new StringBuilder(StrImportCollection).append(HASHMAP).append(SEMI).toString());	
+			strImports.add(new StringBuilder(StrImportCollection).append(_HashMap).append(SEMI).toString());	
 			break;
 			
 		case 7 :
-			strImports.add(new StringBuilder(StrImportCollection).append(ARRAYLIST).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(_ArrayList).append(SEMI).toString());
 			break;
 			
 		case 8 :
-			strImports.add(new StringBuilder(StrImportCollection).append(HASHSET).append(SEMI).toString());	
+			strImports.add(new StringBuilder(StrImportCollection).append(_HashSet).append(SEMI).toString());	
 			break;
 			
 		case -1 :
@@ -109,7 +109,7 @@ public class GImport extends Section {
 
 		}
 		
-		Util.joint(content, ENTER);
+		Util.joint(content,ENTER);
 		return nothing;
 	}
 }

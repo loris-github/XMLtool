@@ -15,7 +15,7 @@ public class GEquals extends Section {
 	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
-		Util.joint(declarePart, TAB,PUBLIC,SPACE,"boolean",SPACE,"equals",LRB,"Object",SPACE,"o",RRB);
+		Util.joint(declarePart, TAB,_public,SPACE,_boolean,SPACE,_equals,LRB,_Object,SPACE,_o,RRB);
 		
 		return declarePart;
 	}
@@ -28,13 +28,13 @@ public class GEquals extends Section {
 		// if(!(o instanceof beanName)) return false;
 		// beanName e = (beanName)o ;
 		StringBuilder upperPart = new StringBuilder();
-		Util.joint(upperPart,LB,ENTER,TAB,TAB,IF,LRB,"o",SPACE,EQUAL,EQUAL,SPACE,THIS,RRB,
-				SPACE,RETURN,SPACE,"true",SEMI,ENTER,
+		Util.joint(upperPart,LB,ENTER,ENTER,TAB,TAB,_if,LRB,_o,SPACE,EQUAL,EQUAL,SPACE,_this,RRB,
+				SPACE,_return,SPACE,_true,SEMI,ENTER,
 				TAB,TAB,
-				IF,LRB,EXCLA,LRB,"o",SPACE,"instanceof",SPACE,beanName,RRB,RRB,
-				SPACE,RETURN,SPACE,"false",SEMI,ENTER,
+				_if,LRB,EXCLA,LRB,_o,SPACE,_instanceof,SPACE,beanName,RRB,RRB,
+				SPACE,_return,SPACE,_false,SEMI,ENTER,
 				TAB,TAB,
-				beanName,SPACE,"e",SPACE,EQUAL,SPACE,LRB,beanName,RRB,"o",SEMI,ENTER);
+				beanName,SPACE,_e,SPACE,EQUAL,SPACE,LRB,beanName,RRB,_o,SEMI,ENTER,ENTER);
 		
 		return upperPart;
 	}
@@ -50,16 +50,16 @@ public class GEquals extends Section {
 		// if(this.memberName != e.memberName) return false; 
 		case 0 :	
 			Util.joint(midPart,TAB,TAB,
-					IF,LRB,THIS,DOT,memberName,SPACE,EXCLA,EQUAL,SPACE,"e",DOT,memberName,RRB,SPACE,
-					RETURN,SPACE,"false",SEMI,ENTER);
+					_if,LRB,_this,DOT,memberName,SPACE,EXCLA,EQUAL,SPACE,_e,DOT,memberName,RRB,SPACE,
+					_return,SPACE,_false,SEMI,ENTER);
 			break;
 		
 		// OtherTypes
 		// if(!this.memberName.equals(e.memberName)) return false;
 		case -1 :			
 			Util.joint(midPart,TAB,TAB,
-					IF,LRB,EXCLA,THIS,DOT,memberName,DOT,"equals",LRB,"e",DOT,memberName,RRB,RRB,SPACE,
-					RETURN,SPACE,"false",SEMI,ENTER);
+					_if,LRB,EXCLA,_this,DOT,memberName,DOT,_equals,LRB,_e,DOT,memberName,RRB,RRB,SPACE,
+					_return,SPACE,_false,SEMI,ENTER);
 			break;
 		}
 	
@@ -70,7 +70,7 @@ public class GEquals extends Section {
 	protected final StringBuilder genLowerPart(){
 		
 		StringBuilder lowerPart = new StringBuilder();
-		Util.joint(lowerPart,TAB,TAB,RETURN,SPACE,"true",SEMI,ENTER,TAB,RB,ENTER,ENTER);
+		Util.joint(lowerPart,ENTER,TAB,TAB,_return,SPACE,_true,SEMI,ENTER,TAB,RB,ENTER,ENTER);
 		
 		return lowerPart;
 	}

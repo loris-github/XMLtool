@@ -15,7 +15,7 @@ public class GHashCode extends Section {
 	protected final StringBuilder genDeclarePart(){
 		
 		StringBuilder declarePart = new StringBuilder();
-		Util.joint(declarePart, TAB,PUBLIC,SPACE,"int",SPACE,"hashCode",LRB,RRB);
+		Util.joint(declarePart, TAB,_public,SPACE,_int,SPACE,_hashCode,LRB,RRB);
 		
 		return declarePart;
 	}
@@ -27,8 +27,8 @@ public class GHashCode extends Section {
 		StringBuilder upperPart = new StringBuilder();
 		
 		// int h = (int)serialVersionUID;
-		Util.joint(upperPart,LB,ENTER,TAB,TAB,
-				"int",SPACE,"h",SPACE,EQUAL,SPACE,LRB,"int",RRB,"serialVersionUID",SEMI,ENTER);
+		Util.joint(upperPart,LB,ENTER,ENTER,TAB,TAB,
+				_int,SPACE,_h,SPACE,EQUAL,SPACE,LRB,_int,RRB,_serialVersionUID,SEMI,ENTER,ENTER);
 		
 		return upperPart;
 	}
@@ -45,18 +45,18 @@ public class GHashCode extends Section {
 		// h = h * 31 + 1 + (int)this.memberName;
 		case 0 :
 			Util.joint(midPart, TAB,TAB,
-					"h",SPACE,EQUAL,SPACE,
-					"h",SPACE,ASTERISK,SPACE,"31",SPACE,"+",SPACE,"1",SPACE,
-					"+",SPACE,LRB,"int",RRB,THIS,DOT,memberName,SEMI,ENTER);			
+					_h,SPACE,EQUAL,SPACE,
+					_h,SPACE,ASTERISK,SPACE,_31,SPACE,PLUS,SPACE,_1,SPACE,
+					PLUS,SPACE,LRB,_int,RRB,_this,DOT,memberName,SEMI,ENTER);			
 			break;
 		
 		// OtherTypes
 		// h = h * 31 + 1 + this.memberName.hashCode();
 		case -1 :
 			Util.joint(midPart, TAB,TAB,
-					"h",SPACE,EQUAL,SPACE,
-					"h",SPACE,ASTERISK,SPACE,"31",SPACE,"+",SPACE,"1",SPACE,
-					"+",SPACE,THIS,DOT,memberName,DOT,"hashCode",LRB,RRB,SEMI,ENTER);	
+					_h,SPACE,EQUAL,SPACE,
+					_h,SPACE,ASTERISK,SPACE,_31,SPACE,PLUS,SPACE,_1,SPACE,
+					PLUS,SPACE,_this,DOT,memberName,DOT,_hashCode,LRB,RRB,SEMI,ENTER);	
 			break;
 		}	
 	}	
@@ -66,7 +66,7 @@ public class GHashCode extends Section {
 	protected final StringBuilder genLowerPart(){
 		
 		StringBuilder lowerPart = new StringBuilder();
-		Util.joint(lowerPart,TAB,TAB,RETURN,SPACE,"h",SEMI,ENTER,TAB,RB,ENTER);
+		Util.joint(lowerPart,TAB,TAB,_return,SPACE,_h,SEMI,ENTER,TAB,RB,ENTER,ENTER);
 		
 		return lowerPart;
 	}

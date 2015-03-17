@@ -16,8 +16,8 @@ public class GToString extends Section {
 		
 		StringBuilder declarePart = new StringBuilder();
 		
-		Util.joint(declarePart,TAB,PUBLIC,SPACE,
-				"String",SPACE,"toString",LRB,RRB);
+		Util.joint(declarePart,TAB,_public,SPACE,
+				_String,SPACE,_toString,LRB,RRB);
 
 		return declarePart;
 	}
@@ -28,8 +28,8 @@ public class GToString extends Section {
 		
 		StringBuilder upperPart = new StringBuilder();
 		
-		Util.joint(upperPart,LB,ENTER,TAB,TAB,"StringBuffer",SPACE,"s",SPACE,EQUAL,SPACE,"new",
-				SPACE,"StringBuffer",LRB,RRB,SEMI,ENTER);
+		Util.joint(upperPart,LB,ENTER,ENTER,TAB,TAB,_StringBuilder,SPACE,_s,SPACE,EQUAL,SPACE,_new,
+				SPACE,_StringBuilder,LRB,RRB,SEMI,ENTER,ENTER);
 		
 		return upperPart;
 	}
@@ -47,14 +47,14 @@ public class GToString extends Section {
 		// Map, List, Set, HashMap, ArrayList, HashSet
 		// Util.append(s, this.memberName);
 		case 0 :
-			Util.joint(midPart,"sectionGenerator.generatorInterface.Util",DOT,"append",LRB,"s",COMMA,SPACE,THIS,DOT,memberName,
+			Util.joint(midPart,_Util,DOT,_append,LRB,_s,COMMA,SPACE,_this,DOT,memberName,
 					RRB);
 			break;
 			
 		// OtherTypes
 		// s.append(this.memberName).append(",");	
 		case -1 :			
-			Util.joint(midPart,"s",DOT,"append",LRB,THIS,DOT,memberName,RRB,DOT,"append",
+			Util.joint(midPart,_s,DOT,_append,LRB,_this,DOT,memberName,RRB,DOT,_append,
 					LRB,QUOTE,COMMA,QUOTE,RRB);
 			break;
 		}
@@ -71,8 +71,8 @@ public class GToString extends Section {
 		StringBuilder lowerPart = new StringBuilder();
 		
 		// return s.append(\"}\").toString();}
-		Util.joint(lowerPart, TAB,TAB,"return",SPACE,"s",DOT,"append",LRB,QUOTE,RB,QUOTE,RRB,
-				DOT,"toString",LRB,RRB,SEMI,ENTER,TAB,RB,ENTER);
+		Util.joint(lowerPart,ENTER,TAB,TAB,_return,SPACE,_s,DOT,_append,LRB,QUOTE,RB,QUOTE,RRB,
+				DOT,_toString,LRB,RRB,SEMI,ENTER,TAB,RB,ENTER,ENTER);
 
 		return lowerPart;
 	}
