@@ -8,8 +8,9 @@ public class GGetSet extends Section{
 	protected final void genByMembers(StringBuilder midPart, String memberName,String memberType){
 		
 		GenGet(midPart,memberName,memberType);
-		
+		Util.joint(midPart,ENTER);		
 		GenSet(midPart,memberName,memberType);
+		Util.joint(midPart,ENTER);
 		
 	}
 	

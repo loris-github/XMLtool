@@ -28,7 +28,7 @@ public final class GConstructor extends Section {
 		
 		StringBuilder upperPart = new StringBuilder();
 		
-		Util.joint(upperPart,LRB,ENTER);
+		Util.joint(upperPart,LB,ENTER);
 		
 		return upperPart;
 	}

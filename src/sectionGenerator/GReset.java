@@ -37,19 +37,33 @@ public class GReset extends Section {
 			
 		//语句中间部分
 		switch(strategyID){
-
+		
+		// byte, short, int, long, float, double, char
+		// memberName = "0";
 		case 0 :
-			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,"0",SEMI,ENTER);
+			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,"0",SEMI,ENTER);			
 			break;
-			
+		
+		// boolean
+		// memberName = false;	
 		case 1 :
+			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,"false",SEMI,ENTER);
+			break;	
+			
+		// String
+		// memberName = "";	
+		case 2 :
 			Util.joint(midPart,TAB,TAB,memberName,SPACE,EQUAL,SPACE,QUOTE,QUOTE,SEMI,ENTER);
 			break;
 		
-		case 2 :			
+		// 	Map, List, Set, HashMap, ArrayList, HashSet
+		// this.memberName.clear();	
+		case 3 :			
 			Util.joint(midPart,TAB,TAB,THIS,DOT,memberName,DOT,"clear",LRB,RRB,SEMI,ENTER);
 			break;	
-			
+		
+		// OtherTypes
+		// this.memberName = null;	
 		case -1 :			
 			Util.joint(midPart,TAB,TAB,THIS,DOT,memberName,SPACE,EQUAL,SPACE,NULL,SEMI,ENTER);
 			break;

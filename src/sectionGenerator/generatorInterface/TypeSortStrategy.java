@@ -7,7 +7,7 @@ public class TypeSortStrategy implements CharacterAndSymbol {
 	
 	private static final String[] collectionTypes = { MAP, LIST, SET, HASHMAP, ARRAYLIST, HASHSET };
 	
-	//GConstructor
+	// GConstructor
 	public static final String[][] TSS_Constructor = 	{
 														basicTypes, 
 														{ STRING },
@@ -16,7 +16,7 @@ public class TypeSortStrategy implements CharacterAndSymbol {
 														{ SET }
 														};
 
-	//GConstructorWithArgs
+	// GConstructorWithArgs
 	public static final String[][] TSS_ConstructorWithArgs = 	{
 																basicTypes,
 																{ STRING },
@@ -25,53 +25,43 @@ public class TypeSortStrategy implements CharacterAndSymbol {
 																{ SET, HASHSET },
 																}; 
 	
-	//GAssign
+	// GAssign
 	public static final String[][] TSS_Assign  = 	{
 													basicTypes,
 													{ STRING },
-													{}
+													{ MAP, HASHMAP },
+													{ LIST, ARRAYLIST, SET, HASHSET },
 													}; 	
 	
-	//GCompareTo
+	// GCompareTo
 	public static final String[][] TSS_CompareTo  =	{
-														{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
-														{STRING},
-														{}
+														{ FLOAT },
+														{ DOUBLE },
+														{ LONG },
+														{ BYTE, SHORT, INT,CHAR, BOOLEAN },
+														{ MAP, HASHMAP, LIST, ARRAYLIST, SET, HASHSET },
 														}; 
-	//HashCode
+	// ToString
 	public static final String[][] TSS_ToString = 	{
-													{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
-													{STRING},
-													{}
+													collectionTypes,
 													}; 
-	//GReset
+	// GReset
 	public static final String[][] TSS_Reset  =	{
-													{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
-													{STRING},
-													{}
+													{ BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR },
+													{ BOOLEAN },
+													{ STRING },
+													collectionTypes
 													}; 
-	//GHashCode
+	// GHashCode
 	public static final String[][] TSS_HashCode = 	{
-													{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
-													{STRING},
-													{}
+													basicTypes,
 													}; 
 	
-	//GEquals
+	// GEquals
 	public static final String[][] TSS_Equals   =	{
-													{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
-													{STRING},
-													{}
+													basicTypes,
 													}; 
-	
-	//GClone
-	public static final String[][] TSS_Clone   =	{
-													{BYTE,SHORT,INT,LONG,FLOAT,DOUBLE,CHAR,BOOLEAN},
-													{STRING},
-													{}
-													}; 
-
-	//GClone
+	// GImport
 	public static final String[][] TSS_Import   =	{
 													{ MAP },
 													{ LIST },

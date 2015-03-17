@@ -26,6 +26,7 @@ public class GHashCode extends Section {
 		
 		StringBuilder upperPart = new StringBuilder();
 		
+		// int h = (int)serialVersionUID;
 		Util.joint(upperPart,LB,ENTER,TAB,TAB,
 				"int",SPACE,"h",SPACE,EQUAL,SPACE,LRB,"int",RRB,"serialVersionUID",SEMI,ENTER);
 		
@@ -39,14 +40,18 @@ public class GHashCode extends Section {
 		//语句中间部分
 
 		switch(strategyID){
-
+		
+		// byte, short, int, long, float, double, char, boolean
+		// h = h * 31 + 1 + (int)this.memberName;
 		case 0 :
 			Util.joint(midPart, TAB,TAB,
 					"h",SPACE,EQUAL,SPACE,
 					"h",SPACE,ASTERISK,SPACE,"31",SPACE,"+",SPACE,"1",SPACE,
 					"+",SPACE,LRB,"int",RRB,THIS,DOT,memberName,SEMI,ENTER);			
 			break;
-			
+		
+		// OtherTypes
+		// h = h * 31 + 1 + this.memberName.hashCode();
 		case -1 :
 			Util.joint(midPart, TAB,TAB,
 					"h",SPACE,EQUAL,SPACE,

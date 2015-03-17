@@ -15,7 +15,7 @@ public class GClassDeclaration extends Sentence{
 			      + beanName.substring(1);
 		
 		Util.joint(content, PUBLIC,SPACE,"class",SPACE,className,SPACE,
-				"implements",SPACE,"Compareable",LAB,beanName,RAB,COMMA,SPACE,
+				"implements",SPACE,"Comparable",LAB,beanName,RAB,COMMA,SPACE,
 				"java",DOT,"io",DOT,"Serializable",SPACE,LB,ENTER,ENTER,
 				TAB,PRIVATE,SPACE,"static",SPACE,"final",SPACE,"long",SPACE,
 				"serialVersionUID",SPACE,EQUAL,SPACE,"1L",SEMI,ENTER,ENTER);		

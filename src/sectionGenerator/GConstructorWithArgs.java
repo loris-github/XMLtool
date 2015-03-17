@@ -21,8 +21,9 @@ public class GConstructorWithArgs extends Section {
 		
 		for(String memberName:memberNames){
 			
-			String memberType = members.get(memberNames);
-			Util.joint(declarePart, strComma,memberType,SPACE,memberName);
+			String memberType = members.get(memberName);
+			
+			Util.joint(declarePart, strComma, memberType, SPACE, memberName);
 			
 			strComma = COMMA;
 		}

@@ -54,6 +54,8 @@ public class JFCreater implements ContentGenerator{
 			
 			s[i].appendContent(fileContent, xb);				
 		}
+		
+		fileContent.append("}");
 	}
 	
 	public void generateContent(StringBuffer fileContent,XMLBean xb) {

@@ -57,7 +57,7 @@ public class Section extends Sentence {
 			
 		} else {
 			
-			for(String memberName: memberNames){
+			for(String memberName : memberNames){
 				
 				String memberType = members.get(memberName);
 							

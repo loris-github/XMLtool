@@ -16,7 +16,7 @@ public class GToString extends Section {
 		
 		StringBuilder declarePart = new StringBuilder();
 		
-		Util.joint(declarePart, TAB,TAB,PUBLIC,SPACE,
+		Util.joint(declarePart,TAB,PUBLIC,SPACE,
 				"String",SPACE,"toString",LRB,RRB);
 
 		return declarePart;
@@ -43,12 +43,16 @@ public class GToString extends Section {
 		
 		//语句中间部分
 		switch(strategyID){
-
+		
+		// Map, List, Set, HashMap, ArrayList, HashSet
+		// Util.append(s, this.memberName);
 		case 0 :
-			Util.joint(midPart,"Util",DOT,"append",LRB,"s",COMMA,SPACE,THIS,DOT,memberName,
+			Util.joint(midPart,"sectionGenerator.generatorInterface.Util",DOT,"append",LRB,"s",COMMA,SPACE,THIS,DOT,memberName,
 					RRB);
 			break;
 			
+		// OtherTypes
+		// s.append(this.memberName).append(",");	
 		case -1 :			
 			Util.joint(midPart,"s",DOT,"append",LRB,THIS,DOT,memberName,RRB,DOT,"append",
 					LRB,QUOTE,COMMA,QUOTE,RRB);
@@ -66,7 +70,8 @@ public class GToString extends Section {
 		
 		StringBuilder lowerPart = new StringBuilder();
 		
-		Util.joint(lowerPart, TAB,TAB,"RETURN",SPACE,"s",DOT,"append",LRB,QUOTE,RB,QUOTE,RRB,
+		// return s.append(\"}\").toString();}
+		Util.joint(lowerPart, TAB,TAB,"return",SPACE,"s",DOT,"append",LRB,QUOTE,RB,QUOTE,RRB,
 				DOT,"toString",LRB,RRB,SEMI,ENTER,TAB,RB,ENTER);
 
 		return lowerPart;

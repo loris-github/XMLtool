@@ -30,7 +30,7 @@ public class GAssign extends Section {
 		Util.joint(upperPart,LB,ENTER,TAB,TAB,
 				IF,LRB,"a",SPACE,EQUAL,EQUAL,SPACE,THIS,RRB,SPACE,RETURN,SEMI,ENTER,
 				TAB,TAB,
-				IF,LRB,"a",SPACE,EQUAL,EQUAL,SPACE,NULL,SPACE,LB,"reset",LRB,RRB,SEMI,SPACE,RETURN,SEMI,RB,ENTER);
+				IF,LRB,"a",SPACE,EQUAL,EQUAL,SPACE,NULL,RRB,SPACE,LB,"reset",LRB,RRB,SEMI,SPACE,RETURN,SEMI,RB,ENTER);
 		
 		return upperPart;
 	}
@@ -61,21 +61,23 @@ public class GAssign extends Section {
 			break;
 		
 		// Map, HashMap
-		// 	
+		// this.memberName.clear(); if(null != a.memberName) this.memberName.putAll(a.memberName);
 		case 2 :					
-			Util.joint(midPart,DOT,"clear",LRB,RRB,SEMI,SPACE,IF,LRB,"a",DOT,memberName,SPACE,
-					EXCLA,EQUAL,SPACE,NULL,RRB,SPACE,THIS,DOT,memberName,DOT,"methodName","a",DOT,
+			Util.joint(midPart,DOT,"clear",LRB,RRB,SEMI,SPACE,IF,LRB,NULL,SPACE,
+					EXCLA,EQUAL,SPACE,"a",DOT,memberName,RRB,SPACE,THIS,DOT,memberName,DOT,"putAll",LRB,"a",DOT,
 					memberName,RRB);			
 			break;	
 		
 		// List, ArrayList, Set, HashSet
-		// 	
+		// this.memberName.clear(); if(null != a.memberName) this.memberName.addAll(a.memberName);
 		case 3 :			
-			Util.joint(midPart,DOT,"clear",LRB,RRB,SEMI,SPACE,IF,LRB,"a",DOT,memberName,SPACE,
-					EXCLA,EQUAL,SPACE,NULL,RRB,SPACE,THIS,DOT,memberName,DOT,"methodName","a",DOT,
+			Util.joint(midPart,DOT,"clear",LRB,RRB,SEMI,SPACE,IF,LRB,NULL,SPACE,
+					EXCLA,EQUAL,SPACE,"a",DOT,memberName,RRB,SPACE,THIS,DOT,memberName,DOT,"addAll",LRB,"a",DOT,
 					memberName,RRB);
 			break;
-			
+		
+		// OtherTypes	
+		// this.memberName.assign(a.memberName);	
 		case -1 :		
 			Util.joint(midPart,DOT,"assign",LRB,"a",DOT,memberName,RRB);			
 			break;			

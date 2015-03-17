@@ -3,6 +3,7 @@ package sectionGenerator;
 import java.util.HashSet;
 import java.util.Set;
 
+import contentGenerator.ContentKit;
 import sectionGenerator.generatorInterface.Section;
 import sectionGenerator.generatorInterface.TypeSortStrategy;
 import sectionGenerator.generatorInterface.Util;
@@ -32,72 +33,65 @@ public class GImport extends Section {
 	
 	//方法中间部分
 	@Override
-	protected final void genByMembers(StringBuilder midPart, int strategyID, String memberName,String memberType){
+	protected final StringBuilder genMidPart(){
+		
+		StringBuilder midPart = new StringBuilder(nothing);
+
+		for(String memberType: memberTypes){
+			
+			String strType = ContentKit.getStrBeforeLeftAngleBracket(memberType);
+			
+			int strategyID = Util.getStrategyID (strType,typeSortStrategy);
+
+			genByTypes(strategyID);
+
+		}
+
+		return midPart;
+	}
+	
+	protected final void genByTypes(int strategyID){
 	
 		//语句中间部分
 		switch(strategyID){
 
 		case 0 :
-			Util.joint(midPart,StrImportCollection,"Map",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;
-			Util.joint(midPart,StrImportCollection,"HashMap",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;
+			strImports.add(new StringBuilder(StrImportCollection).append(MAP).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(HASHMAP).append(SEMI).toString());
 			break;
 
 		case 1 :
-			Util.joint(midPart,StrImportCollection,"List",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;
-			Util.joint(midPart,StrImportCollection,"ArrayList",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;
+			strImports.add(new StringBuilder(StrImportCollection).append(LIST).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(ARRAYLIST).append(SEMI).toString());
 			break;
 
 		case 2 :
-			Util.joint(midPart,StrImportCollection,"Set",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;
-			Util.joint(midPart,StrImportCollection,"HashSet",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;
+			strImports.add(new StringBuilder(StrImportCollection).append(SET).append(SEMI).toString());
+			strImports.add(new StringBuilder(StrImportCollection).append(HASHSET).append(SEMI).toString());
 			break;
 
 		case 3 :
-			Util.joint(midPart,StrImportCollection,"Map",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;			
+			strImports.add(new StringBuilder(StrImportCollection).append(MAP).append(SEMI).toString());		
 			break;
 
 		case 4 :
-			Util.joint(midPart,StrImportCollection,"List",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;	
+			strImports.add(new StringBuilder(StrImportCollection).append(LIST).append(SEMI).toString());
 			break;
 
 		case 5 :
-			Util.joint(midPart,StrImportCollection,"Set",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;	
+			strImports.add(new StringBuilder(StrImportCollection).append(SET).append(SEMI).toString());
 			break;
 			
 		case 6 :
-			Util.joint(midPart,StrImportCollection,"HashMap",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;	
+			strImports.add(new StringBuilder(StrImportCollection).append(HASHMAP).append(SEMI).toString());	
 			break;
 			
 		case 7 :
-			Util.joint(midPart,StrImportCollection,"ArrayList",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;	
+			strImports.add(new StringBuilder(StrImportCollection).append(ARRAYLIST).append(SEMI).toString());
 			break;
 			
 		case 8 :
-			Util.joint(midPart,StrImportCollection,"HashSet",SEMI);
-			strImports.add(midPart.toString());
-			midPart = nothing;	
+			strImports.add(new StringBuilder(StrImportCollection).append(HASHSET).append(SEMI).toString());	
 			break;
 			
 		case -1 :
@@ -111,10 +105,11 @@ public class GImport extends Section {
 		
 		if(strImports.size()>0) {
 			
-			for(String strImport : strImports) Util.joint(content, strImport);
+			for(String strImport : strImports) Util.joint(content, strImport,ENTER);
 
 		}
 		
+		Util.joint(content, ENTER);
 		return nothing;
 	}
 }
