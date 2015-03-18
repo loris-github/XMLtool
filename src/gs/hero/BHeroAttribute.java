@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
+import sectionGenerator.generatorInterface.Util;
+import sectionGenerator.generatorInterface.Bean;
 
-public class BHeroAttribute implements Comparable<BHeroAttribute>,Cloneable,java.io.Serializable {
+
+public class BHeroAttribute extends Bean<BHeroAttribute> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -147,9 +150,9 @@ public class BHeroAttribute implements Comparable<BHeroAttribute>,Cloneable,java
 		i = this.level - c.level; if(i!= 0) return i;
 		i = this.name.compareTo(c.name); if(i!= 0) return i;
 		i = this.heroid - c.heroid; if(i!= 0) return i;
-		i = sectionGenerator.generatorInterface.Util.compareTo(this.equips,c.equips); if(i!= 0) return i;
+		i = Util.compareTo(this.equips,c.equips); if(i!= 0) return i;
 		i = this.exp - c.exp; if(i!= 0) return i;
-		i = sectionGenerator.generatorInterface.Util.compareTo(this.poses,c.poses); if(i!= 0) return i;
+		i = Util.compareTo(this.poses,c.poses); if(i!= 0) return i;
 
 		return 0;
 	}
@@ -161,9 +164,9 @@ public class BHeroAttribute implements Comparable<BHeroAttribute>,Cloneable,java
 		s.append(this.level).append(",");
 		s.append(this.name).append(",");
 		s.append(this.heroid).append(",");
-		sectionGenerator.generatorInterface.Util.append(s, this.equips);
+		Util.append(s, this.equips);
 		s.append(this.exp).append(",");
-		sectionGenerator.generatorInterface.Util.append(s, this.poses);
+		Util.append(s, this.poses);
 
 		return s.append("}").toString();
 	}

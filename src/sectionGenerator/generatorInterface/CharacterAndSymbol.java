@@ -18,16 +18,15 @@ public interface CharacterAndSymbol {
 
 	public static final String _package = "package";
 	public static final String _import = "import";
+	public static final String _extends = "extends";
 	
-	public static final String _util = "java.util.";
-	public static final String _Util = "sectionGenerator.generatorInterface.Util";
-	public static final String _Comparable = "Comparable";
-	public static final String _Cloneable = "Cloneable";
-	public static final String _Serializable = "java.io.Serializable";
-	
+	public static final String _Bean = "Bean";
+	public static final String _Util = "Util";
+	public static final String P_util = "java.util";
+	public static final String P_Util = "sectionGenerator.generatorInterface.Util";	
+	public static final String P_Bean = "sectionGenerator.generatorInterface.Bean";	
 	
 	public static final String _class = "class";
-	public static final String _implements = "implements";
 	public static final String _static = "static";
 	public static final String _final = "final";
 	public static final String _private = "private";
@@ -112,8 +111,9 @@ public interface CharacterAndSymbol {
 
 	public static final String LB = "{"; // left brace
 	public static final String RB = "}"; // right brace
-	public static final String BS = "{}"; // braces
 	
 	public static final StringBuilder nothing = new StringBuilder();
-	public static final StringBuilder StrImportCollection = Util.joint(new StringBuilder(), _import,SPACE,_util);
+	public static final StringBuilder StrImportCollection = Util.joint(new StringBuilder(), _import,SPACE,P_util,DOT);
+
+	public static final StringBuilder StrImportUtil = Util.joint(new StringBuilder(),_import,SPACE,P_Util,SEMI);
 }

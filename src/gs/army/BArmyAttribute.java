@@ -1,11 +1,9 @@
 package gs.army;
 
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.HashMap;
+import sectionGenerator.generatorInterface.Bean;
 
-public class BArmyAttribute implements Comparable<BArmyAttribute>,Cloneable,java.io.Serializable {
+
+public class BArmyAttribute extends Bean<BArmyAttribute> {
 
 	private static final long serialVersionUID = 1L;
 

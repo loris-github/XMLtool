@@ -79,11 +79,11 @@ public class Util implements CharacterAndSymbol{
 	
 	public static final StringBuilder append(StringBuilder s, Collection<?> c)
 	{
-		if(c.isEmpty()) return s.append(BS).append(COMMA);
+		if(c.isEmpty()) return s.append(LB).append(RB).append(COMMA);
 		
 		s.append(LB);
 		
-		for(Object o : c) 
+		for(Object o : c)
 			s.append(o).append(COMMA);
 		
 		s.append(RB).append(COMMA);
@@ -93,7 +93,7 @@ public class Util implements CharacterAndSymbol{
 	
 	public static final StringBuilder append(StringBuilder s, Map<?, ?> m)
 	{
-		if(m.isEmpty()) return s.append(BS).append(COMMA);
+		if(m.isEmpty()) return s.append(LB).append(RB).append(COMMA);
 		
 		s.append(LB);
 		

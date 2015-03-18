@@ -1,7 +1,9 @@
 package gs.hero;
 
+import sectionGenerator.generatorInterface.Bean;
 
-public class BHeroPosition implements Comparable<BHeroPosition>,Cloneable,java.io.Serializable {
+
+public class BHeroPosition extends Bean<BHeroPosition> {
 
 	private static final long serialVersionUID = 1L;
 

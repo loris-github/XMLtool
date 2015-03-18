@@ -1,11 +1,9 @@
 package gs.army;
 
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.HashMap;
+import sectionGenerator.generatorInterface.Bean;
 
-public class BArmyPosition implements Comparable<BArmyPosition>,Cloneable,java.io.Serializable {
+
+public class BArmyPosition extends Bean<BArmyPosition> {
 
 	private static final long serialVersionUID = 1L;
 
